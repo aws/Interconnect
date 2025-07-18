@@ -1,11 +1,6 @@
-## My Project
+## MultiCloud Open Specification
 
-TODO: Fill this README out!
-
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
+Describes the OpenAPI 3.0 specification of the symmetric API to be used to coordinate managed L3 connectivity.
 
 ## Security
 
