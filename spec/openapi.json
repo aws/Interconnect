@@ -1295,11 +1295,6 @@
             "media",
             "proto"
           ],
-          "enum-descriptions": [
-            "Responses with Content-Type of application/json",
-            "Media download with context-dependent Content-Type",
-            "Responses with Content-Type of application/x-protobuf"
-          ],
           "type": "string"
         },
         "in": "query"
@@ -1329,10 +1324,6 @@
             "1",
             "2"
           ],
-          "enum-descriptions": [
-            "v1 error format",
-            "v2 error format"
-          ],
           "type": "string"
         },
         "in": "query"
@@ -1347,7 +1338,6 @@
         "properties": {
           "name": {
             "description": "Identifier. Unique identifier for a Provider resource.\n\nEvery provider that supports the cloud connectivity API will receive a\ncentrally managed provider ID, stored alongside this specification in the\nopensource project, that uniquely identifies them.  When accessing a remote\ncloud connectivity server, the provider will use their provider ID to\nrequest and create resources within the remote server.",
-            "identifier": true,
             "type": "string"
           },
           "displayName": {
@@ -1363,7 +1353,6 @@
         "properties": {
           "name": {
             "description": "Identifier. Unique identifier for an Environment resource.",
-            "identifier": true,
             "type": "string"
           },
           "providerToLocation": {
@@ -1484,7 +1473,6 @@
         "properties": {
           "name": {
             "description": "Identifier. Unique identifier for the Interconnect resource.",
-            "identifier": true,
             "type": "string"
           },
           "supportedConnectionSizeMbps": {
@@ -1505,15 +1493,9 @@
             }
           },
           "status": {
-            "description": "Output only. The operational status of the interconnect used to control connection\nprovisioning.",
+            "description": "Output only. The operational status of the interconnect used to control connection\nprovisioning.\n\nINTERCONNECT_STATUS_UNSPECIFIED - Unspecified interconnect status\nINTERCONNECT_STATUS_PENDING - Provisioning is pending and not ready for production traffic.\nINTERCONNECT_STATUS_READY - Provisioning is complete and ready for production traffic.\nINTERCONNECT_STATUS_CLOSED - Functional for current customers but closed to new connections.",
             "readOnly": true,
             "type": "string",
-            "enum-descriptions": [
-              "Unspecified interconnect status",
-              "Provisioning is pending and not ready for production traffic.",
-              "Provisioning is complete and ready for production traffic.",
-              "Functional for current customers but closed to new connections."
-            ],
             "enum": [
               "INTERCONNECT_STATUS_UNSPECIFIED",
               "INTERCONNECT_STATUS_PENDING",
@@ -1552,7 +1534,6 @@
         "properties": {
           "name": {
             "description": "Identifier. Unique identifier for the Channel resource.",
-            "identifier": true,
             "type": "string"
           },
           "macsecManagerProviderId": {
@@ -1668,12 +1649,10 @@
         "properties": {
           "name": {
             "description": "Identifier. A unique identifier for the connection resource.",
-            "identifier": true,
             "type": "string"
           },
           "activationKey": {
             "description": "Identifier. A activation key associated with the connection.",
-            "identifier": true,
             "type": "string"
           },
           "bandwidthMbps": {
@@ -1891,7 +1870,6 @@
         "properties": {
           "name": {
             "description": "Identifier. A unique identifier for the feature resource.",
-            "identifier": true,
             "type": "string"
           },
           "channelId": {
@@ -2018,10 +1996,7 @@
       },
       "FeatureType": {
         "type": "string",
-        "enum-descriptions": [
-          "Unspecified feature type.",
-          "L3 Base: Primary feature used to connect Layer 3 traffic."
-        ],
+        "description": "FEATURE_TYPE_UNSPECIFIED - Unspecified feature type.\nFEATURE_TYPE_L3_BASE - Primary feature used to connect Layer 3 traffic.",
         "enum": [
           "FEATURE_TYPE_UNSPECIFIED",
           "FEATURE_TYPE_L3_BASE"
@@ -2029,11 +2004,7 @@
       },
       "AdminStatus": {
         "type": "string",
-        "enum-descriptions": [
-          "Admin status is unspecified",
-          "A provider has administratively enabled a resource.",
-          "A provider has administratively disabled a resource."
-        ],
+        "description": "ADMIN_STATUS_UNSPECIFIED - Admin status is unspecified\nADMIN_STATUS_ENABLED - A provider has administratively enabled a resource.\nADMIN_STATUS_DISABLED - A provider has administratively disabled a resource.\n",
         "enum": [
           "ADMIN_STATUS_UNSPECIFIED",
           "ADMIN_STATUS_ENABLED",
@@ -2042,11 +2013,7 @@
       },
       "ProvisioningStatus": {
         "type": "string",
-        "enum-descriptions": [
-          "Unspecified provisioning status",
-          "Provisioning is pending and not ready for production traffic.",
-          "Provisioning is complete and ready for production traffic."
-        ],
+        "description": "PROVISIONING_STATUS_UNSPECIFIED - Unspecified provisioning status\nPROVISIONING_STATUS_PENDING - Provisioning is pending and not ready for production traffic.\nPROVISIONING_STATUS_FINAL - Provisioning is complete and ready for production traffic.",
         "enum": [
           "PROVISIONING_STATUS_UNSPECIFIED",
           "PROVISIONING_STATUS_PENDING",
