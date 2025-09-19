@@ -1383,6 +1383,13 @@
             "items": {
               "$ref": "#/components/schemas/FeatureType"
             }
+          },
+	  "environmentVisibility": {
+            "description": "Output only. Controls the visibility of this environment in the provider's customer\nfacing APIs.",
+            "readOnly": true,
+            "allOf": [{
+              "$ref": "#/components/schemas/EnvironmentVisibility"
+            }]
           }
         }
       },
@@ -2000,6 +2007,14 @@
         "enum": [
           "FEATURE_TYPE_UNSPECIFIED",
           "FEATURE_TYPE_L3_BASE"
+        ]
+      },
+      "EnvironmentVisibility": {
+        "type": "string",
+        "description": "Enum that describes the visibility of an environment.\n ENVIRONMENT_VISIBILITY_PRIVATE - A private environment has limited visibility (as jointly defined by\nproviders) to an individual or small number of customers.\nENVIRONMENT_VISIBILITY_PUBLIC - A public environment is visible to all provider customers with little to no\nrestriction.",
+        "enum": [
+          "ENVIRONMENT_VISIBILITY_PRIVATE",
+          "ENVIRONMENT_VISIBILITY_PUBLIC"
         ]
       },
       "AdminStatus": {
