@@ -868,11 +868,11 @@
         }
       }
     },
-    "/providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/FeatureGuidance": {
-      "get": {
+    "/providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/GenerateFeatureGuidance": {
+      "post": {
         "tags": ["mcapi"],
-        "operationId": "GetFeatureGuidance",
-        "description": "Retrieves all feature guidance associated with a connection.",
+        "operationId": "GenerateFeatureGuidance",
+        "description": "Requests the server to generate feature guidance for all channels associated\nwith a given connection and return the results.",
         "security": [
         ],
         "parameters": [
@@ -913,13 +913,23 @@
             }
           }
         ],
+        "requestBody": {
+          "description": "The request body.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateFeatureGuidanceRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "default": {
             "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetFeatureGuidanceResponse"
+                  "$ref": "#/components/schemas/GenerateFeatureGuidanceResponse"
                 }
               }
             }
@@ -1311,7 +1321,7 @@
         "name": "$prettyPrint",
         "description": "Returns response with indentations and line breaks.",
         "schema": {
-          "default": "true",
+          "default": true,
           "type": "boolean"
         },
         "in": "query"
@@ -1696,8 +1706,12 @@
           }
         }
       },
-      "GetFeatureGuidanceResponse": {
-        "description": "All feature guidance associated with a connection.",
+      "GenerateFeatureGuidanceRequest": {
+        "description": "Request to generate feature guidance for all channels associated with a\nconnection.",
+        "type": "object"
+      },
+      "GenerateFeatureGuidanceResponse": {
+        "description": "Response message containing the generated feature guidance for all channels\nassociated with a connection.",
         "type": "object",
         "properties": {
           "featureGuidance": {
@@ -1720,8 +1734,8 @@
               "$ref": "#/components/schemas/FeatureType"
             }]
           },
-          "channelId": {
-            "description": "Channel this guidance applies to.",
+          "channel": {
+            "description": "Relative URI of the Channel this guidance applies to.",
             "type": "string"
           },
           "l3BaseGuidance": {
@@ -1736,59 +1750,59 @@
         "description": "All guidance associated with the FEATURE_TYPE_L3_BASE.",
         "type": "object",
         "properties": {
-          "asn": {
-            "description": "A list of non-overlapping ASN ranges a provider can select from.\n\nMany providers only support one ASN.  In this case, asn.start == asn.end.",
+          "asnRanges": {
+            "description": "A list of non-overlapping ASN ranges a provider can select from.\n\nMany providers only support one ASN. In this case, asn.start == asn.stop.",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ASNRange"
             }
           },
-          "subnetGuidanceIpv4": {
-            "description": "A list of non-overlapping IP subnets a provider can select from.\n\nMany providers allow connections within the link local IP space.\nExample:\n\n[\n  {{\"includeSubnet\": \"169.254.0.0/16\"},\n  {\"excludeSubnet\": \"169.254.1.0/28\"},\n  {\"preferredSubnet\":\"169.254.1.16/30\"}},\n]",
+          "ipv4SubnetGuidance": {
+            "description": "A list of non-overlapping IP subnets a provider can select from.\n\nMany providers allow connections within the link local IP space.\nExample:\n\n[\n  {\n  \"includeSubnet\": \"169.254.0.0/16\",\n  \"excludeSubnet\": [\"169.254.1.0/28\"],\n  \"preferredSubnet\":\"169.254.1.16/30\"\n  }\n]",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Subnet"
+              "$ref": "#/components/schemas/SubnetGuidance"
             }
           },
-          "subnetGuidanceIpv6": {
+          "ipv6SubnetGuidance": {
             "description": "A list of non-overlapping IPv6 subnets a provider can select from.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Subnet"
+              "$ref": "#/components/schemas/SubnetGuidance"
             }
           },
-          "allowedSubnetSizeIpv4": {
-            "description": "The subnet sizes allowed when selecting an IP subnet for a connection.",
+          "ipv4AllowedSubnetPrefixLengths": {
+            "description": "The subnet sizes allowed when selecting an IP subnet for a connection.\nThis tells the caller what the valid subnet prefix lengths are within the\nsubnet guidance provided. Example: If Subnet Guidance is:\n[\n  {\n    \"includeSubnet\": \"169.254.0.0/16\",\n    \"excludeSubnet\": [],\n    \"preferredSubnet\":\"169.254.1.16/29\"\n  }\n]\nAnd ipv4_allowed_subnet_prefix_lengths is [29]\nThen the caller can select a /29 subnet within 169.254.0.0/16.",
             "type": "array",
             "items": {
               "type": "integer",
               "format": "int32"
             }
           },
-          "allowedSubnetSizeIpv6": {
-            "description": "The subnet sizes allowed when selecting an IP subnet for a connection.",
+          "ipv6AllowedSubnetPrefixLengths": {
+            "description": "The subnet sizes allowed when selecting an IP subnet for a connection.\nThis tells the caller what the valid subnet prefix lengths are within the\nsubnet guidance provided. Example: If Subnet Guidance is:\n[\n  {\n    \"includeSubnet\": \"fd20::/16\",\n    \"excludeSubnet\": [],\n    \"preferredSubnet\":\"fd20:0:0:1::/64\"\n  }\n]\nAnd ipv6_allowed_subnet_prefix_lengths is [64]\nThen the caller can select a /64 subnet within fd20::/16.",
             "type": "array",
             "items": {
               "type": "integer",
               "format": "int32"
             }
           },
-          "vlan": {
+          "vlanRanges": {
             "description": "A list of VLANs the provider may select from.",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/VLANRange"
             }
           },
-          "mtu": {
+          "mtuRanges": {
             "description": "A list of non-overlapping MTU ranges a provider can select from.\n\nSpecial note: This represents the MTU limits at the connection points\nbetween providers, there may be further limitations within provider\nnetworks that must be explained in customer facing APIs and / or\ndocumentation.",
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MTURange"
             }
           },
-          "maxPrefixes": {
-            "description": "Maximum number of prefixes accepted by the connection.\n\nWhile not negotiated between providers, providers must be aware that if\nmore prefixes are announced, protocol behavior will be undefined.",
+          "maxReceivedBgpRoutePrefixes": {
+            "description": "Maximum number of BGP route prefixes accepted by the connection.\n\nWhile not negotiated between providers, providers must be aware that if\nmore BGP route prefixes are announced, protocol behavior will be\nundefined.",
             "type": "integer",
             "format": "int32"
           }
@@ -1810,15 +1824,15 @@
           }
         }
       },
-      "Subnet": {
-        "description": "An IP subnet usable by a provider when provisioning.\n\nNote: This subnet can be broken down into smaller subnets when\nprovisioning.",
+      "SubnetGuidance": {
+        "description": "Guidance for the usable subnets by a provider when provisioning.\n\nNote: This subnet can be broken down into smaller subnets when\nprovisioning.",
         "type": "object",
         "properties": {
           "includeSubnet": {
-            "description": "A prefix a provider may select within.",
+            "description": "A subnet prefix a provider may select within.",
             "type": "string"
           },
-          "excludeSubnet": {
+          "excludeSubnets": {
             "description": "A list of subnets that should be excluded when creating a new\nfeature.",
             "type": "array",
             "items": {
