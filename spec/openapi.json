@@ -1384,7 +1384,7 @@
               "$ref": "#/components/schemas/FeatureType"
             }
           },
-	  "environmentVisibility": {
+	        "environmentVisibility": {
             "description": "Output only. Controls the visibility of this environment in the provider's customer\nfacing APIs.",
             "readOnly": true,
             "allOf": [{
@@ -1499,16 +1499,12 @@
               "$ref": "#/components/schemas/FeatureType"
             }
           },
-          "status": {
-            "description": "Output only. The operational status of the interconnect used to control connection\nprovisioning.\n\nINTERCONNECT_STATUS_UNSPECIFIED - Unspecified interconnect status\nINTERCONNECT_STATUS_PENDING - Provisioning is pending and not ready for production traffic.\nINTERCONNECT_STATUS_READY - Provisioning is complete and ready for production traffic.\nINTERCONNECT_STATUS_CLOSED - Functional for current customers but closed to new connections.",
+          "state": {
+            "description": "Output only. The operational state of the interconnect used to control connection\nprovisioning.",
             "readOnly": true,
-            "type": "string",
-            "enum": [
-              "INTERCONNECT_STATUS_UNSPECIFIED",
-              "INTERCONNECT_STATUS_PENDING",
-              "INTERCONNECT_STATUS_READY",
-              "INTERCONNECT_STATUS_CLOSED"
-            ]
+            "allOf": [{
+              "$ref": "#/components/schemas/InterconnectState"
+            }]
           },
           "maxBandwidthMbps": {
             "description": "Output only. Specified the aggregate connection bandwidth that can be configured on the\ninterconnect.  Generally this value matches the minimum channel bandwidth\nacross all channels associated with the interconnect.  However, this field\nallows a a provider to limit the total connection bandwidth below the\naggregate physical capacity.\n\nIf not respected by the remote provider, connection creation that exceeds\nthis threshold will fail.",
@@ -1574,11 +1570,11 @@
             "description": "A demarcation identifier that uniquely identifies where the cross connect\nis connected.  This identifier is typically provided by the colocation\nfacility and can be found in letters of authorization when turning up\ncapacity.",
             "type": "string"
           },
-          "adminStatus": {
+          "adminState": {
             "description": "Output only. The administrative status of the channel.  This field is used by a provider\nto signal a channel has been intentionally disabled.",
             "readOnly": true,
             "allOf": [{
-              "$ref": "#/components/schemas/AdminStatus"
+              "$ref": "#/components/schemas/AdminState"
             }]
           }
         }
@@ -1667,18 +1663,18 @@
             "type": "integer",
             "format": "int32"
           },
-          "adminStatus": {
+          "adminState": {
             "description": "Output only. The administrative status of the connection resource.",
             "readOnly": true,
             "allOf": [{
-              "$ref": "#/components/schemas/AdminStatus"
+              "$ref": "#/components/schemas/AdminState"
             }]
           },
-          "provisioningStatus": {
-            "description": "Output only. The provisioning status of the connection resource.\n\nStatus conditions:\n\nPENDING:\n  1. Connection is created and capacity is reserved.\n  2. Negotiation is proceeding to configure connection features.\n\nFINALIZED:\n  1. All features are in a FINALIZED state.",
+          "verificationState": {
+            "description": "Output only. The verification state of the connection resource.",
             "readOnly": true,
             "allOf": [{
-              "$ref": "#/components/schemas/ProvisioningStatus"
+              "$ref": "#/components/schemas/VerificationState"
             }]
           }
         }
@@ -1889,11 +1885,11 @@
               "$ref": "#/components/schemas/FeatureConfig"
             }]
           },
-          "provisioningStatus": {
-            "description": "Output only. The provisioning status of the feature.\n\nStatus conditions:\n\nPENDING:\n  1. Feature is created and parameters are reserved.\n\nFINALIZED:\n  1. Configuration has propagated fully to the provider's infrastructure.\n  2. Customer may send production traffic between providers using the\n     feature.",
+          "provisioningState": {
+            "description": "Output only. The provisioning state of the feature.",
             "readOnly": true,
             "allOf": [{
-              "$ref": "#/components/schemas/ProvisioningStatus"
+              "$ref": "#/components/schemas/ProvisioningState"
             }]
           }
         }
@@ -2003,9 +1999,8 @@
       },
       "FeatureType": {
         "type": "string",
-        "description": "FEATURE_TYPE_UNSPECIFIED - Unspecified feature type.\nFEATURE_TYPE_L3_BASE - Primary feature used to connect Layer 3 traffic.",
+        "description": "FEATURE_TYPE_L3_BASE - Primary feature used to connect Layer 3 traffic.",
         "enum": [
-          "FEATURE_TYPE_UNSPECIFIED",
           "FEATURE_TYPE_L3_BASE"
         ]
       },
@@ -2017,22 +2012,37 @@
           "ENVIRONMENT_VISIBILITY_PUBLIC"
         ]
       },
-      "AdminStatus": {
+      "AdminState": {
         "type": "string",
-        "description": "ADMIN_STATUS_UNSPECIFIED - Admin status is unspecified\nADMIN_STATUS_ENABLED - A provider has administratively enabled a resource.\nADMIN_STATUS_DISABLED - A provider has administratively disabled a resource.\n",
+        "description": "Enum that describes the admin state of a resource.\nADMIN_STATE_ENABLED - A provider has administratively enabled a resource.\nADMIN_STATE_DISABLED - A provider has administratively disabled a resource.\n",
         "enum": [
-          "ADMIN_STATUS_UNSPECIFIED",
-          "ADMIN_STATUS_ENABLED",
-          "ADMIN_STATUS_DISABLED"
+          "ADMIN_STATE_ENABLED",
+          "ADMIN_STATE_DISABLED"
         ]
       },
-      "ProvisioningStatus": {
+      "InterconnectState": {
         "type": "string",
-        "description": "PROVISIONING_STATUS_UNSPECIFIED - Unspecified provisioning status\nPROVISIONING_STATUS_PENDING - Provisioning is pending and not ready for production traffic.\nPROVISIONING_STATUS_FINAL - Provisioning is complete and ready for production traffic.",
+        "description": "Enum that describes the state of an Interconnect.\nINTERCONNECT_STATE_PENDING - Provisioning is pending and not ready for production traffic.\nINTERCONNECT_STATE_ACTIVE - Provisioning is complete and ready for production traffic.\nINTERCONNECT_STATE_CLOSED - Functional for current customers but closed to new connections.",
         "enum": [
-          "PROVISIONING_STATUS_UNSPECIFIED",
-          "PROVISIONING_STATUS_PENDING",
-          "PROVISIONING_STATUS_FINAL"
+          "INTERCONNECT_STATE_PENDING",
+          "INTERCONNECT_STATE_ACTIVE",
+          "INTERCONNECT_STATE_CLOSED"
+        ]
+      },
+      "VerificationState": {
+        "type": "string",
+        "description": "Enum that describes the verification state of a resource.\nVERIFICATION_STATE_UNVERIFIED - Verification is pending and not ready for production traffic.\nVERIFICATION_STATE_VERIFIED - Verification is complete and ready for production traffic.",
+        "enum": [
+          "VERIFICATION_STATE_UNVERIFIED",
+          "VERIFICATION_STATE_VERIFIED"
+        ]
+      },
+      "ProvisioningState": {
+        "type": "string",
+        "description": "Enum that describes the provisioning state of a resource.\nPROVISIONING_STATE_PENDING:\n  1. Feature is created and parameters are reserved.\n\nPROVISIONING_STATE_FINAL:\n  1. Configuration has propagated fully to the provider's infrastructure.\n  2. Customer may send production traffic between providers using the\n     feature.",
+        "enum": [
+          "PROVISIONING_STATE_PENDING",
+          "PROVISIONING_STATE_FINAL"
         ]
       }
     }
