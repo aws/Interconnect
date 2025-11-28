@@ -1946,11 +1946,11 @@ components:
       properties:
         start:
           description: First ASN (inclusive).
-          format: int32
+          format: uint32
           type: integer
         stop:
           description: Last ASN (inclusive).
-          format: int32
+          format: uint32
           type: integer
       type: object
     SubnetGuidance:
@@ -2120,7 +2120,7 @@ components:
           type: string
         asn:
           description: Required. The ASN associated with the provider.
-          format: int32
+          format: uint32
           type: integer
         hostIpv4:
           description: Required. IPv4 address hosting BGP session for provider.
