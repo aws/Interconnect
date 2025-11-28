@@ -1387,9 +1387,14 @@ components:
       properties:
         key:
           allOf:
-          - $ref: "#/components/schemas/ActivationKey"
+          - $ref: "#/components/schemas/EncodedActivationKey"
           description: Activation key to be confirmed.
       type: object
+    EncodedActivationKey:
+      description: |-
+        An ActivationKey, encoded in whichever scheme is defined by the protocol
+        version. For V1, the ActivationKey is Base64 encoded.
+      type: string
     ActivationKey:
       description: |-
         Activation Keys contain all information needed by a provider to validate a
@@ -1397,7 +1402,7 @@ components:
 
         The activation key should be base64 encoded whenever it is exchanged between
         providers.  This helps prevent accidental corruption of the key when
-        transferring it between clouds.
+        transferring it between clouds. (See "#/components/schemas/EncodedActivationKey")
       properties:
         version:
           description: |-
@@ -1746,7 +1751,7 @@ components:
           type: string
         activationKey:
           description: Identifier. A activation key associated with the connection.
-          type: string
+          $ref: "#/components/schemas/EncodedActivationKey"
         bandwidthMbps:
           description: |-
             The total bandwidth associated with a connection.  This bandwidth is what
