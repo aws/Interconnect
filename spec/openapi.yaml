@@ -358,7 +358,8 @@ paths:
     post:
       description: |-
         Notify a remote provider that maintenance events associated with a channel
-        have been modified.
+        have been modified. The recipient should make a GetMaintenanceEvents request
+        to fetch the current set of MaintenanceEvents.
       operationId: NotifyMaintenance
       parameters:
       - description: Resource ID segment making up resource `name`.
@@ -409,40 +410,39 @@ paths:
       security: []
       tags:
       - mcapi
-  /providers/{providersId}/environments/{environmentsId}/interconnects/{interconnectsId}/channels/{channelsId}/maintenanceEvents:
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/maintenanceEvents:
     get:
       description: Get all maintenance events associated with a channel.
       operationId: GetMaintenanceEvents
       parameters:
-      - description: Part of `name`. Required. The name of the channel to retrieve
-          maintenance events for.
+      - description: Resource ID segment making up resource `name`.
         explode: false
         in: path
-        name: providersId
+        name: provider
         required: true
         schema:
           type: string
         style: simple
-      - description: Part of `name`. See documentation of `providersId`.
+      - description: Resource ID segment making up resource `name`.
         explode: false
         in: path
-        name: environmentsId
+        name: environment
         required: true
         schema:
           type: string
         style: simple
-      - description: Part of `name`. See documentation of `providersId`.
+      - description: Resource ID segment making up resource `name`.
         explode: false
         in: path
-        name: interconnectsId
+        name: interconnect
         required: true
         schema:
           type: string
         style: simple
-      - description: Part of `name`. See documentation of `providersId`.
+      - description: Resource ID segment making up resource `name`.
         explode: false
         in: path
-        name: channelsId
+        name: channel
         required: true
         schema:
           type: string
@@ -1656,22 +1656,6 @@ components:
       description: |-
         A notification from a remote provider that a maintenance has been updated on
         a channel.
-      example:
-        events:
-        - maintenanceId: maintenanceId
-          startTime: 2000-01-23T04:56:07.000+00:00
-          endTime: 2000-01-23T04:56:07.000+00:00
-        - maintenanceId: maintenanceId
-          startTime: 2000-01-23T04:56:07.000+00:00
-          endTime: 2000-01-23T04:56:07.000+00:00
-      properties:
-        events:
-          description: |-
-            All maintenance events associated with the channel. At the time of sending
-            the notification.
-          items:
-            $ref: "#/components/schemas/MaintenanceEvent"
-          type: array
       type: object
     MaintenanceEvent:
       description: A maintenance event scheduled or in progress associated with a
