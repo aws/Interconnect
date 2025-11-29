@@ -28,7 +28,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Providers
   /providers/{provider}/environments/{environment}:
     get:
       description: Get details about a specific environment.
@@ -59,7 +59,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Environments
   /providers/{provider}/environments:
     get:
       description: List all environments associated with a CSP.
@@ -106,7 +106,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Environments
   /providers/{provider}/environments/{environment}/ConfirmActivationKey:
     post:
       description: |-
@@ -149,7 +149,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Environments
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}:
     get:
       description: Get details about a specific interconnect.
@@ -188,7 +188,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Interconnects
   /providers/{provider}/environments/{environment}/interconnects:
     get:
       description: List all interconnects associated with a specified environment.
@@ -243,7 +243,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Interconnects
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}:
     get:
       description: Get details about a specific channel.
@@ -290,7 +290,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Channels
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels:
     get:
       description: List all channels associated with an interconnect.
@@ -353,7 +353,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Channels
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/NotifyMaintenance:
     post:
       description: |-
@@ -408,7 +408,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Channels
   /providers/{providersId}/environments/{environmentsId}/interconnects/{interconnectsId}/channels/{channelsId}/maintenanceEvents:
     get:
       description: Get all maintenance events associated with a channel.
@@ -456,7 +456,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Channels
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}:
     delete:
       description: Delete a specific connection.
@@ -503,7 +503,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Connections
     get:
       description: Get details about a specific connection.
       operationId: GetConnection
@@ -549,7 +549,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Connections
     patch:
       description: |-
         Update a specific connection's attributes.
@@ -622,7 +622,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Connections
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections:
     get:
       description: List all connections associated with a given interconnect.
@@ -685,7 +685,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Connections
     post:
       description: |-
         Create a new connection associated with a given interconnect.
@@ -753,7 +753,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Connections
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/GenerateFeatureGuidance:
     post:
       description: |-
@@ -808,7 +808,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Connections
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/NotifyConnectionStatus:
     post:
       description: |-
@@ -870,7 +870,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Connections
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features/{feature}:
     delete:
       description: Delete a specific feature.
@@ -925,7 +925,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Features
     get:
       description: Get details about a specific feature.
       operationId: GetFeature
@@ -979,7 +979,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Features
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features:
     get:
       description: List all features associated with a given connection.
@@ -1050,7 +1050,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Features
     post:
       description: |-
         Create a new feature associated with a connection.
@@ -1136,7 +1136,7 @@ paths:
           description: Successful operation
       security: []
       tags:
-      - mcapi
+      - Features
 components:
   parameters:
     alt:

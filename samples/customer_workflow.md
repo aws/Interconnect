@@ -14,8 +14,8 @@ The net result of a call to this API is to create a pending `Connection` object 
 
 Note that to this point, no calls have been made from CSP A to CSP B--that won't happen until after the customer gives CSP B the `ActivationKey`
 
-## Confirm Connection at CSP B
-With the `ActivationKey` from CSP A in hand, the customer needs to go to CSP B.  Here they will call the appropriate API serving the function of `ConfirmConnection`.  This API needs to take in the `ActivationKey`.  CSP B should read the details out of the `ActivationKey` and provide that information to the customer so they can confirm that the information looks correct.
+## Accept Connection at CSP B
+With the `ActivationKey` from CSP A in hand, the customer needs to go to CSP B.  Here they will call the appropriate API serving the function of `AcceptConnection`.  This API needs to take in the `ActivationKey`.  CSP B should read the details out of the `ActivationKey` and provide that information to the customer so they can confirm that the information looks correct.
 
 Assuming the customer accepts the details, the `Connection` object on CSP B can be created in a pending state--this object is tentative pending successful confirmation.  
 

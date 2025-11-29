@@ -1,4 +1,4 @@
-# MultiCloud Management API: Object Types
+# Connection Coordinator API: Object Types
 
 This document is meant to be a supplement to the OpenAPI specification.  It's objective is to provide some clarity around the overall object hierarchy and what each item actually represents.
 
@@ -27,5 +27,3 @@ The `feature` object is an extensible object to describe anything that we may wa
 The Channel Config `feature` is used to convey a negotiated set of L3 parameters including VLAN, IPv4 Subnet, IPv6 Subnet, and MTU.  Each of these parameters is negotiated as part of the customer's creation.  Once again, the customer has no real influence over the chosen parameters as they are distinctly negotiated between the two CSPs.
 
 When this Channel config is agreed upon, a hosted connection of the appropriate bandwidth is created on the LAG represented by the `channel`.
-
-

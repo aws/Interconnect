@@ -1,6 +1,6 @@
-## MultiCloud Open Specification
+## Connection Coordinator API Specification
 
-Describes the OpenAPI 3.0 specification of the symmetric API to be used to coordinate managed L3 connectivity.
+Provides the Connection Coordinator API specification in OpenAPI 3.0 format.
 
 ## Security
 
