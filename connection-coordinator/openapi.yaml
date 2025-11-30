@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  description: ""
+  title: Cloud Connection Management API
+  version: v1
+servers:
+- url: /
+paths:
+  /providers:
+    $ref: paths/providers.yaml#/AllProviders
+  /providers/{provider}:
+    $ref: paths/providers.yaml#/OneProvider
+  /providers/{provider}/environments:
+    $ref: paths/environments.yaml#/AllEnvironments
+  /providers/{provider}/environments/{environment}:
+    $ref: paths/environments.yaml#/OneEnvironment
+  /providers/{provider}/environments/{environment}/ConfirmActivationKey:
+    $ref: paths/environments.yaml#/ConfirmActivationKey
+  /providers/{provider}/environments/{environment}/interconnects:
+    $ref: paths/interconnects.yaml#/AllInterconnects
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}:
+    $ref: paths/interconnects.yaml#/OneInterconnect
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels:
+    $ref: paths/channels.yaml#/AllChannels
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}:
+    $ref: paths/channels.yaml#/OneChannel
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/NotifyMaintenance:
+    $ref: paths/channels.yaml#/NotifyMaintenance
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/maintenanceEvents:
+    $ref: paths/channels.yaml#/GetMaintenanceEvents
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections:
+    $ref: paths/connections.yaml#/AllConnections
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}:
+    $ref: paths/connections.yaml#/OneConnection
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/GenerateFeatureGuidance:
+    $ref: paths/connections.yaml#/GenerateFeatureGuidance
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/NotifyConnectionStatus:
+    $ref: paths/connections.yaml#/NotifyConnectionStatus
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features:
+    $ref: paths/features.yaml#/AllFeatures
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features/{feature}:
+    $ref: paths/features.yaml#/OneFeature
+components:
+  schemas:
+    Provider:
+      $ref: schemas/provider.yaml#/Provider
+    Environment:
+      $ref: schemas/environment.yaml#/Environment
+    Interconnect:
+      $ref: schemas/interconnect.yaml#/Interconnect
+    Channel:
+      $ref: schemas/channel.yaml#/Channel
+    Connection:
+      $ref: schemas/connection.yaml#/Connection
+    Feature:
+      $ref: schemas/feature.yaml#/Feature
+  parameters:
+    $ref: parameters/_index.yaml#/parameters
+    

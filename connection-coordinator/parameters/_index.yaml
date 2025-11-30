@@ -1,0 +1,109 @@
+parameters:
+  provider:
+    description: Resource ID segment making up resource `name`.
+    explode: false
+    in: path
+    name: provider
+    required: true
+    schema:
+      type: string
+    style: simple
+
+  environment:
+    description: Resource ID segment making up resource `name`.
+    explode: false
+    in: path
+    name: environment
+    required: true
+    schema:
+      type: string
+    style: simple
+
+  interconnect:
+    description: Resource ID segment making up resource `name`.
+    explode: false
+    in: path
+    name: interconnect
+    required: true
+    schema:
+      type: string
+    style: simple
+
+  channel:
+    description: Resource ID segment making up resource `name`.
+    explode: false
+    in: path
+    name: channel
+    required: true
+    schema:
+      type: string
+    style: simple
+
+  connection:
+    description: Resource ID segment making up resource `name`.
+    explode: false
+    in: path
+    name: connection
+    required: true
+    schema:
+      type: string
+    style: simple
+
+  feature:
+    description: Resource ID segment making up resource `name`.
+    explode: false
+    in: path
+    name: feature
+    required: true
+    schema:
+      type: string
+    style: simple
+
+  alt:
+    description: Data format for response.
+    explode: true
+    in: query
+    name: $alt
+    required: false
+    schema:
+      default: json
+      enum:
+      - json
+      - media
+      - proto
+      type: string
+    style: form
+
+  callback:
+    description: JSONP
+    explode: true
+    in: query
+    name: $callback
+    required: false
+    schema:
+      type: string
+    style: form
+
+  prettyPrint:
+    description: Returns response with indentations and line breaks.
+    explode: true
+    in: query
+    name: $prettyPrint
+    required: false
+    schema:
+      default: true
+      type: boolean
+    style: form
+
+  _.xgafv:
+    description: V1 error format.
+    explode: true
+    in: query
+    name: $.xgafv
+    required: false
+    schema:
+      enum:
+      - "1"
+      - "2"
+      type: string
+    style: form
