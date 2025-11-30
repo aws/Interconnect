@@ -72,7 +72,7 @@ OneMacSecKey:
           content:
             application/json:
               schema:
-                $ref: "#../schemas/macseckey.yaml#/MacSecKey"
+                $ref: "../schemas/macseckey.yaml#/MacSecKey"
           description: Successful operation
     security: []
     tags:

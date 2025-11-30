@@ -97,7 +97,7 @@ L3BaseGuidance:
           }
         ]
       items:
-        $ref: "#SubnetGuidance"
+        $ref: "#/SubnetGuidance"
       type: array
     ipv6SubnetGuidance:
       description: A list of non-overlapping IPv6 subnets a provider can select
@@ -290,7 +290,7 @@ GenerateFeatureGuidanceResponse:
         every channel associated with the interconnect the connection is
         provisioned on.
       items:
-        $ref: "connection.yaml#/FeatureGuidance"
+        $ref: "#/FeatureGuidance"
       readOnly: true
       type: array
   type: object
