@@ -1,0 +1,302 @@
+Connection:
+  description: |-
+    Connection resources contain all connection wide details about a connection
+    configured on behalf of a customer between two clouds.
+
+    Connection resources must have the following attributes:
+
+    1. When created, the connection must reserve bandwidth on their associated
+        interconnect.
+    2. A remote provider must create a connection locally before requesting a
+        server provider create a connection.
+    3. Connections that were never finalized may be deleted by either provider
+        after 7 days.
+    4. Connections present on only one provider may be deleted after 7 days.
+    5. When deleted, the server provider is responsible for invalidating the key
+        material associated with the connection to avoid accidental reuse.
+  example:
+    name: name
+    adminState: ""
+    activationKey: activationKey
+    verificationState: ""
+    bandwidthMbps: 0
+  properties:
+    name:
+      description: Identifier. A unique identifier for the connection resource.
+      type: string
+    activationKey:
+      description: Identifier. A activation key associated with the connection.
+      type: string
+    bandwidthMbps:
+      description: |-
+        The total bandwidth associated with a connection.  This bandwidth is what
+        has been sold to the customer, there may be more capacity reserved after
+        provisioning the connection across multiple channels.
+      format: int32
+      type: integer
+    adminState:
+      allOf:
+      - $ref: common.yaml#/AdminState
+      description: Output only. The administrative status of the connection resource.
+      readOnly: true
+    verificationState:
+      allOf:
+      - $ref: common.yaml#/VerificationState
+      description: Output only. The verification state of the connection resource.
+      readOnly: true
+  type: object
+  
+FeatureGuidance:
+  description: |-
+    FeatureGuidance contains a list of preferences and restrictions associated
+    with feature creation.  When fields are unpopulated, the server has no
+    restrictions or preferences.  Unless specified as a preference, the server
+    provider is expected to reject feature creation requests that deviate from
+    the feature guidance restrictions returned.
+  example:
+    l3BaseGuidance: ""
+    featureType: ""
+    channel: channel
+  properties:
+    featureType:
+      allOf:
+      - $ref: "feature.yaml#/FeatureType"
+      description: The feature type associated with this guidance.
+    channel:
+      description: Relative URI of the Channel this guidance applies to.
+      type: string
+    l3BaseGuidance:
+      allOf:
+      - $ref: "#/L3BaseGuidance"
+      description: All configuration guidance associated with a FEATURE_TYPE_L3_BASE.
+  type: object
+
+L3BaseGuidance:
+  description: All guidance associated with the FEATURE_TYPE_L3_BASE.
+  properties:
+    asnRanges:
+      description: |-
+        A list of non-overlapping ASN ranges a provider can select from.
+
+        Many providers only support one ASN. In this case, asn.start == asn.stop.
+      items:
+        $ref: "#/ASNRange"
+      type: array
+    ipv4SubnetGuidance:
+      description: |-
+        A list of non-overlapping IP subnets a provider can select from.
+
+        Many providers allow connections within the link local IP space.
+        Example:
+
+        [
+          {
+          "includeSubnet": "169.254.0.0/16",
+          "excludeSubnet": ["169.254.1.0/28"],
+          "preferredSubnet":"169.254.1.16/30"
+          }
+        ]
+      items:
+        $ref: "#SubnetGuidance"
+      type: array
+    ipv6SubnetGuidance:
+      description: A list of non-overlapping IPv6 subnets a provider can select
+        from.
+      items:
+        $ref: "#/SubnetGuidance"
+      type: array
+    ipv4AllowedSubnetPrefixLengths:
+      description: |-
+        The subnet sizes allowed when selecting an IP subnet for a connection.
+        This tells the caller what the valid subnet prefix lengths are within the
+        subnet guidance provided. Example: If Subnet Guidance is:
+        [
+          {
+            "includeSubnet": "169.254.0.0/16",
+            "excludeSubnet": [],
+            "preferredSubnet":"169.254.1.16/29"
+          }
+        ]
+        And ipv4_allowed_subnet_prefix_lengths is [29]
+        Then the caller can select a /29 subnet within 169.254.0.0/16.
+      items:
+        format: int32
+        type: integer
+      type: array
+    ipv6AllowedSubnetPrefixLengths:
+      description: |-
+        The subnet sizes allowed when selecting an IP subnet for a connection.
+        This tells the caller what the valid subnet prefix lengths are within the
+        subnet guidance provided. Example: If Subnet Guidance is:
+        [
+          {
+            "includeSubnet": "fd20::/16",
+            "excludeSubnet": [],
+            "preferredSubnet":"fd20:0:0:1::/64"
+          }
+        ]
+        And ipv6_allowed_subnet_prefix_lengths is [64]
+        Then the caller can select a /64 subnet within fd20::/16.
+      items:
+        format: int32
+        type: integer
+      type: array
+    vlanRanges:
+      description: A list of VLANs the provider may select from.
+      items:
+        $ref: "#/VLANRange"
+      type: array
+    mtuRanges:
+      description: |-
+        A list of non-overlapping MTU ranges a provider can select from.
+
+        Special note: This represents the MTU limits at the connection points
+        between providers, there may be further limitations within provider
+        networks that must be explained in customer facing APIs and / or
+        documentation.
+      items:
+        $ref: "#/MTURange"
+      type: array
+    maxReceivedBgpRoutePrefixes:
+      description: |-
+        Maximum number of BGP route prefixes accepted by the connection.
+
+        While not negotiated between providers, providers must be aware that if
+        more BGP route prefixes are announced, protocol behavior will be
+        undefined.
+      format: int32
+      type: integer
+  type: object
+
+ASNRange:
+  description: A range of acceptable ASNs.
+  properties:
+    start:
+      description: First ASN (inclusive).
+      format: int32
+      type: integer
+    stop:
+      description: Last ASN (inclusive).
+      format: int32
+      type: integer
+  type: object
+
+SubnetGuidance:
+  description: |-
+    Guidance for the usable subnets by a provider when provisioning.
+
+    Note: This subnet can be broken down into smaller subnets when
+    provisioning.
+  properties:
+    includeSubnet:
+      description: A subnet prefix a provider may select within.
+      type: string
+    excludeSubnets:
+      description: |-
+        A list of subnets that should be excluded when creating a new
+        feature.
+      items:
+        type: string
+      type: array
+    preferredSubnet:
+      description: A subnet preferred by the server when creating a new feature
+      type: string
+  type: object
+
+VLANRange:
+  description: |-
+    A range of VLAN IDs that a provider may select from.
+
+    The remote provider should have full visibility into what has been
+    provisioned from this range.  The server will not filter out any used
+    VLANs on behalf of the caller.
+  properties:
+    start:
+      description: First VLAN (inclusive)
+      format: int32
+      type: integer
+    stop:
+      description: Last VLAN (inclusive)
+      format: int32
+      type: integer
+  type: object
+
+MTURange:
+  description: |-
+    A range of MTUs that a provider may select from.
+
+    The remote provider should select the highest MTU supported by both
+    providers.
+  properties:
+    start:
+      description: First MTU (inclusive).
+      format: int32
+      type: integer
+    stop:
+      description: Last MTU (inclusive).
+      format: int32
+      type: integer
+  type: object
+
+ListConnectionsResponse:
+  description: Response for obtaining multiple connection resources.
+  example:
+    nextPageToken: nextPageToken
+    connections:
+    - name: name
+      adminState: ""
+      activationKey: activationKey
+      verificationState: ""
+      bandwidthMbps: 0
+    - name: name
+      adminState: ""
+      activationKey: activationKey
+      verificationState: ""
+      bandwidthMbps: 0
+  properties:
+    connections:
+      description: The connections from the specified provider.
+      items:
+        $ref: "#/Connection"
+      type: array
+    nextPageToken:
+      description: |-
+        A token, which can be sent as `page_token` to retrieve the next page.
+        If this field is omitted, there are no subsequent pages.
+      type: string
+  type: object
+GenerateFeatureGuidanceRequest:
+  description: |-
+    Request to generate feature guidance for all channels associated with a
+    connection.
+  type: object
+GenerateFeatureGuidanceResponse:
+  description: |-
+    Response message containing the generated feature guidance for all channels
+    associated with a connection.
+  example:
+    featureGuidance:
+    - l3BaseGuidance: ""
+      featureType: ""
+      channel: channel
+    - l3BaseGuidance: ""
+      featureType: ""
+      channel: channel
+  properties:
+    featureGuidance:
+      description: |-
+        Output only. A list of guidance a remote provider can use to provision features on the
+        created connection.  The list should include a feature guidance object for
+        every channel associated with the interconnect the connection is
+        provisioned on.
+      items:
+        $ref: "connection.yaml#/FeatureGuidance"
+      readOnly: true
+      type: array
+  type: object
+
+NotifyConnectionStatusRequest:
+  description: |-
+    A notification from a remote provider that a connection's status has been
+    updated.
+  type: object
