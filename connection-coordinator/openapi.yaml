@@ -61,5 +61,26 @@ components:
     MacSecKey:
       $ref: schemas/macseckey.yaml#/MacSecKey
   parameters:
-    $ref: parameters/_index.yaml#/parameters
-    
+    provider:
+      $ref: parameters/_index.yaml#/parameters/provider
+    environment:
+      $ref: parameters/_index.yaml#/parameters/environment
+    interconnect:
+      $ref: parameters/_index.yaml#/parameters/interconnect
+    channel:
+      $ref: parameters/_index.yaml#/parameters/channel
+    connection:
+      $ref: parameters/_index.yaml#/parameters/connection
+    feature:
+      $ref: parameters/_index.yaml#/parameters/feature
+    macSecKey:
+      $ref: parameters/_index.yaml#/parameters/macSecKey
+    alt:
+      $ref: parameters/_index.yaml#/parameters/alt
+    callback:
+      $ref: parameters/_index.yaml#/parameters/callback
+    prettyPrint:
+      $ref: parameters/_index.yaml#/parameters/prettyPrint
+    _.xgafv:
+      $ref: parameters/_index.yaml#/parameters/_.xgafv
+
