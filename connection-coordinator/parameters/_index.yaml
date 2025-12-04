@@ -69,6 +69,16 @@ parameters:
       type: string
     style: simple
 
+  issue:
+    description: Resource ID segment making up resource `name`.
+    explode: false
+    in: path
+    name: issue
+    required: true
+    schema:
+      type: string
+    style: simple
+
   alt:
     description: Data format for response.
     explode: true

@@ -44,6 +44,16 @@ paths:
     $ref: paths/features.yaml#/AllFeatures
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features/{feature}:
     $ref: paths/features.yaml#/OneFeature
+  /providers/{provider}/issues:
+    $ref: paths/issues.yaml#/AllIssues
+  /providers/{provider}/issues/{issue}:
+    $ref: paths/issues.yaml#/OneIssue
+  /providers/{provider}/issues/{issue}/Close:
+    $ref: paths/issues.yaml#/CloseIssue
+  /providers/{provider}/issues/{issue}/comments:
+    $ref: paths/issues.yaml#/ListComments
+  /providers/{provider}/issues/{issue}/AddComment:
+    $ref: paths/issues.yaml#/AddComment
 components:
   schemas:
     Provider:
@@ -60,6 +70,8 @@ components:
       $ref: schemas/feature.yaml#/Feature
     MacSecKey:
       $ref: schemas/macseckey.yaml#/MacSecKey
+    Issue:
+      $ref: schemas/issues.yaml#/Issue
   parameters:
     provider:
       $ref: parameters/_index.yaml#/parameters/provider
@@ -75,6 +87,8 @@ components:
       $ref: parameters/_index.yaml#/parameters/feature
     macSecKey:
       $ref: parameters/_index.yaml#/parameters/macSecKey
+    issue:
+      $ref: parameters/_index.yaml#/parameters/issue
     alt:
       $ref: parameters/_index.yaml#/parameters/alt
     callback:
