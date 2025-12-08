@@ -1,7 +1,7 @@
 AllMacSecKeys:
   post:
     description: Create a new MACsec key on the channel
-    operationId: GetMacSecKey
+    operationId: CreateMacSecKey
     parameters:
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
@@ -12,7 +12,7 @@ AllMacSecKeys:
         the connection's resource name.
       explode: false
       in: query
-      name: macSecKey
+      name: macSecKeyId
       required: true
       schema:
         type: string
@@ -40,7 +40,7 @@ AllMacSecKeys:
     - MacSecKey
   get:
     description: List all the MACsec keys associated with the channel
-    operationId: GetMacSecKey
+    operationId: ListMacSecKeys
     parameters:
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
