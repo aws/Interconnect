@@ -1,0 +1,16 @@
+get:
+  description: Gets details of a single Issue.
+  operationId: GetIssue
+  parameters:
+  - $ref: "../../parameters/_index.yaml#/parameters/provider"
+  - $ref: "../../parameters/_index.yaml#/parameters/issue"
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/issues/issue.yaml"
+      description: Successful operation
+  security: []
+  tags:
+  - Issues

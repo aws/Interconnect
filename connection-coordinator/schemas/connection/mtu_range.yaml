@@ -1,0 +1,15 @@
+description: |-
+  A range of MTUs that a provider may select from.
+
+  The remote provider should select the highest MTU supported by both
+  providers.
+properties:
+  start:
+    description: First MTU (inclusive).
+    format: int32
+    type: integer
+  stop:
+    description: Last MTU (inclusive).
+    format: int32
+    type: integer
+type: object

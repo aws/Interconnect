@@ -1,0 +1,11 @@
+description: A range of acceptable ASNs.
+properties:
+  start:
+    description: First ASN (inclusive).
+    format: int32
+    type: integer
+  stop:
+    description: Last ASN (inclusive).
+    format: int32
+    type: integer
+type: object

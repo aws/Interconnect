@@ -1,0 +1,8 @@
+description: Response for obtaining multiple MacSecKey resources
+properties:
+  macSecKeys:
+    description: The macSecKeys for the respective Channel
+    items:
+      $ref: "mac_sec_key.yaml"
+    type: array
+type: object

@@ -1,0 +1,7 @@
+description: Results of adding a comment to an issue.
+properties:
+  comment:
+    allOf:
+    - $ref: "comment.yaml"
+    description: The comment that was added.
+type: object

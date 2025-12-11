@@ -1,0 +1,11 @@
+description: Feature specific configuration associated with a Feature resource.
+properties:
+  featureType:
+    allOf:
+    - $ref: "feature_type.yaml"
+    description: The feature type this configuration contains.
+  l3BaseConfig:
+    allOf:
+    - $ref: "l3_base_config.yaml"
+    description: All configuration associated with the FEATURE_TYPE_L3_BASE
+type: object

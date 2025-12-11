@@ -1,0 +1,16 @@
+description: Response for getting maintenance events for a channel.
+example:
+  events:
+  - maintenanceId: maintenanceId
+    startTime: 2000-01-23T04:56:07.000+00:00
+    endTime: 2000-01-23T04:56:07.000+00:00
+  - maintenanceId: maintenanceId
+    startTime: 2000-01-23T04:56:07.000+00:00
+    endTime: 2000-01-23T04:56:07.000+00:00
+properties:
+  events:
+    description: The maintenance events for the specified channel.
+    items:
+      $ref: "maintenance_event.yaml"
+    type: array
+type: object

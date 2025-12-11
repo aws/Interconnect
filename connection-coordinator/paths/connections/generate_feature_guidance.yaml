@@ -1,0 +1,26 @@
+post:
+  description: |-
+    Requests the server to generate feature guidance for all channels associated
+    with a given connection and return the results.
+  operationId: GenerateFeatureGuidance
+  parameters:
+  - $ref: "../../parameters/_index.yaml#/parameters/provider"
+  - $ref: "../../parameters/_index.yaml#/parameters/environment"
+  - $ref: "../../parameters/_index.yaml#/parameters/interconnect"
+  - $ref: "../../parameters/_index.yaml#/parameters/connection"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../../schemas/connection/generate_feature_guidance_request.yaml"
+    description: The request body.
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/connection/generate_feature_guidance_response.yaml"
+      description: Successful operation
+  security: []
+  tags:
+  - Connections

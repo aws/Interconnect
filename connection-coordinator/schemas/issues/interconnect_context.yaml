@@ -1,0 +1,11 @@
+description: 'An interconnect experiencing an issue and any relevant context
+  associated
+
+  with it.'
+properties:
+  interconnect:
+    description: Required. Interconnect experiencing issues.
+    type: string
+required:
+- interconnect
+type: object

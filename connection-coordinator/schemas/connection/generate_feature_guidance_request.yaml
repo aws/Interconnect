@@ -1,0 +1,4 @@
+description: |-
+  Request to generate feature guidance for all channels associated with a
+  connection.
+type: object

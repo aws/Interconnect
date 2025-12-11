@@ -1,0 +1,22 @@
+post:
+  description: Adds a comment to a Issue.
+  operationId: AddComment
+  parameters:
+  - $ref: "../../parameters/_index.yaml#/parameters/provider"
+  - $ref: "../../parameters/_index.yaml#/parameters/issue"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../../schemas/issues/add_comment_request.yaml"
+    description: The request body.
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/issues/add_comment_response.yaml"
+      description: Successful operation
+  security: []
+  tags:
+  - Issues

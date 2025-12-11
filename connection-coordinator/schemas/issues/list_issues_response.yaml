@@ -1,0 +1,14 @@
+description: List of issues response body.
+properties:
+  issues:
+    description: The list of Issue.
+    items:
+      $ref: "issue.yaml"
+    type: array
+  nextPageToken:
+    description: 'A token that can be sent as `page_token` to retrieve the next
+      page.
+
+      If this field is omitted, there are no subsequent pages.'
+    type: string
+type: object

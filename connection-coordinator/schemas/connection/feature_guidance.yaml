@@ -1,0 +1,23 @@
+description: |-
+  FeatureGuidance contains a list of preferences and restrictions associated
+  with feature creation.  When fields are unpopulated, the server has no
+  restrictions or preferences.  Unless specified as a preference, the server
+  provider is expected to reject feature creation requests that deviate from
+  the feature guidance restrictions returned.
+example:
+  l3BaseGuidance: ""
+  featureType: ""
+  channel: channel
+properties:
+  featureType:
+    allOf:
+    - $ref: "../feature/feature_type.yaml"
+    description: The feature type associated with this guidance.
+  channel:
+    description: Relative URI of the Channel this guidance applies to.
+    type: string
+  l3BaseGuidance:
+    allOf:
+    - $ref: "l3_base_guidance.yaml"
+    description: All configuration guidance associated with a FEATURE_TYPE_L3_BASE.
+type: object

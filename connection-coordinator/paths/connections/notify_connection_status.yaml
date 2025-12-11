@@ -1,0 +1,33 @@
+post:
+  description: |-
+    Notify a remote provider that the provisioning status of a connection has
+    changed.
+
+    A provider will typically send a remote provider two updates:
+    1) A notification when a newly created channel has transitioned from
+        PENDING to FINALIZED
+    2) A notification when an existing channel transitions from FINALIZED
+        to PENDING.  This happens when features change and need finalization.
+    3) A notification when a channel is FINALIZED after a feature change.
+  operationId: NotifyConnectionStatus
+  parameters:
+  - $ref: "../../parameters/_index.yaml#/parameters/provider"
+  - $ref: "../../parameters/_index.yaml#/parameters/environment"
+  - $ref: "../../parameters/_index.yaml#/parameters/interconnect"
+  - $ref: "../../parameters/_index.yaml#/parameters/connection"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../../schemas/connection/notify_connection_status_request.yaml"
+    description: The request body.
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/common/empty.yaml"
+      description: Successful operation
+  security: []
+  tags:
+  - Connections

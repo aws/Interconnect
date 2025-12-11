@@ -1,0 +1,26 @@
+post:
+  description: |-
+    Notify a remote provider that maintenance events associated with a channel
+    have been modified.
+  operationId: NotifyMaintenance
+  parameters:
+  - $ref: "../../parameters/_index.yaml#/parameters/provider"
+  - $ref: "../../parameters/_index.yaml#/parameters/environment"
+  - $ref: "../../parameters/_index.yaml#/parameters/interconnect"
+  - $ref: "../../parameters/_index.yaml#/parameters/channel"
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../../schemas/channel/notify_maintenance_request.yaml"
+    description: The request body.
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/common/empty.yaml"
+      description: Successful operation
+  security: []
+  tags:
+  - Channels

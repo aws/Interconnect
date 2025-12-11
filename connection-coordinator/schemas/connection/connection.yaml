@@ -1,0 +1,46 @@
+description: |-
+  Connection resources contain all connection wide details about a connection
+  configured on behalf of a customer between two clouds.
+
+  Connection resources must have the following attributes:
+
+  1. When created, the connection must reserve bandwidth on their associated
+      interconnect.
+  2. A remote provider must create a connection locally before requesting a
+      server provider create a connection.
+  3. Connections that were never finalized may be deleted by either provider
+      after 7 days.
+  4. Connections present on only one provider may be deleted after 7 days.
+  5. When deleted, the server provider is responsible for invalidating the key
+      material associated with the connection to avoid accidental reuse.
+example:
+  name: name
+  adminState: ""
+  activationKey: activationKey
+  verificationState: ""
+  bandwidthMbps: 0
+properties:
+  name:
+    description: Identifier. A unique identifier for the connection resource.
+    type: string
+  activationKey:
+    description: Identifier. A activation key associated with the connection.
+    type: string
+  bandwidthMbps:
+    description: |-
+      The total bandwidth associated with a connection.  This bandwidth is what
+      has been sold to the customer, there may be more capacity reserved after
+      provisioning the connection across multiple channels.
+    format: int32
+    type: integer
+  adminState:
+    allOf:
+    - $ref: "../common/admin_state.yaml"
+    description: Output only. The administrative status of the connection resource.
+    readOnly: true
+  verificationState:
+    allOf:
+    - $ref: "../common/verification_state.yaml"
+    description: Output only. The verification state of the connection resource.
+    readOnly: true
+type: object

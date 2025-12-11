@@ -1,0 +1,46 @@
+description: |-
+  Provider resources encapsulate all information that describe the
+  relationship between a remote provider and a server provider.
+
+  When a remote provider calls this API, the provider should always reference
+  their assigned provider id.  Provider IDs are globally unique, and stored in
+  this specification's opensource repository.  This allows a remote provider to
+  have access to multiple provider IDs as business relationship change over
+  time.
+
+  For example, if we have two providers (ProviderA, ProviderB) who are
+  coordinating connections with this API, when ProviderA (remote provider)
+  calls this API hosted by ProviderB (server provider), their requests will
+  always be prefixed by:
+
+  Prefix: providers/
+
+  If the server provider has decided that ProviderA's credentials allow them to
+  access additional credentials (through something like an acquisition),
+  ProviderA may access all resources under ProviderC.
+
+  ProviderB must also allow ProviderA to access the server's provider resource
+  (providers/).  This provides ProviderA with access to relevant
+  information about the server provider (such as display names).
+example:
+  displayName: displayName
+  name: name
+properties:
+  name:
+    description: |-
+      Identifier. Unique identifier for a Provider resource.
+
+      Every provider that supports the cloud connectivity API will receive a
+      centrally managed provider ID, stored alongside this specification in the
+      opensource project, that uniquely identifies them.  When accessing a remote
+      cloud connectivity server, the provider will use their provider ID to
+      request and create resources within the remote server.
+    type: string
+  displayName:
+    description: |-
+      Output only. Provider name suitable for display to end users.
+
+      Example: Amazon Web Services, Google Cloud Platform, Microsoft Azure, etc
+    readOnly: true
+    type: string
+type: object

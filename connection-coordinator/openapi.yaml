@@ -7,71 +7,182 @@ servers:
 - url: /
 paths:
   /providers:
-    $ref: paths/providers.yaml#/AllProviders
+    $ref: paths/providers/all_providers.yaml
   /providers/{provider}:
-    $ref: paths/providers.yaml#/OneProvider
+    $ref: paths/providers/one_provider.yaml
   /providers/{provider}/environments:
-    $ref: paths/environments.yaml#/AllEnvironments
+    $ref: paths/environments/all_environments.yaml
   /providers/{provider}/environments/{environment}:
-    $ref: paths/environments.yaml#/OneEnvironment
+    $ref: paths/environments/one_environment.yaml
   /providers/{provider}/environments/{environment}/ConfirmActivationKey:
-    $ref: paths/environments.yaml#/ConfirmActivationKey
+    $ref: paths/environments/confirm_activation_key.yaml
   /providers/{provider}/environments/{environment}/interconnects:
-    $ref: paths/interconnects.yaml#/AllInterconnects
+    $ref: paths/interconnects/all_interconnects.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}:
-    $ref: paths/interconnects.yaml#/OneInterconnect
+    $ref: paths/interconnects/one_interconnect.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels:
-    $ref: paths/channels.yaml#/AllChannels
+    $ref: paths/channels/all_channels.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}:
-    $ref: paths/channels.yaml#/OneChannel
+    $ref: paths/channels/one_channel.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/NotifyMaintenance:
-    $ref: paths/channels.yaml#/NotifyMaintenance
+    $ref: paths/channels/notify_maintenance.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/maintenanceEvents:
-    $ref: paths/channels.yaml#/GetMaintenanceEvents
+    $ref: paths/channels/get_maintenance_events.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/macSecKeys:
-    $ref: paths/macseckeys.yaml#/AllMacSecKeys  
+    $ref: paths/macseckeys/all_mac_sec_keys.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/macSecKeys/{macSecKey}:
-    $ref: paths/macseckeys.yaml#/OneMacSecKey
+    $ref: paths/macseckeys/one_mac_sec_key.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections:
-    $ref: paths/connections.yaml#/AllConnections
+    $ref: paths/connections/all_connections.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}:
-    $ref: paths/connections.yaml#/OneConnection
+    $ref: paths/connections/one_connection.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/GenerateFeatureGuidance:
-    $ref: paths/connections.yaml#/GenerateFeatureGuidance
+    $ref: paths/connections/generate_feature_guidance.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/NotifyConnectionStatus:
-    $ref: paths/connections.yaml#/NotifyConnectionStatus
+    $ref: paths/connections/notify_connection_status.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features:
-    $ref: paths/features.yaml#/AllFeatures
+    $ref: paths/features/all_features.yaml
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features/{feature}:
-    $ref: paths/features.yaml#/OneFeature
+    $ref: paths/features/one_feature.yaml
   /providers/{provider}/issues:
-    $ref: paths/issues.yaml#/AllIssues
+    $ref: paths/issues/all_issues.yaml
   /providers/{provider}/issues/{issue}:
-    $ref: paths/issues.yaml#/OneIssue
+    $ref: paths/issues/one_issue.yaml
   /providers/{provider}/issues/{issue}/Close:
-    $ref: paths/issues.yaml#/CloseIssue
+    $ref: paths/issues/close_issue.yaml
   /providers/{provider}/issues/{issue}/comments:
-    $ref: paths/issues.yaml#/ListComments
+    $ref: paths/issues/list_comments.yaml
   /providers/{provider}/issues/{issue}/AddComment:
-    $ref: paths/issues.yaml#/AddComment
+    $ref: paths/issues/add_comment.yaml
 components:
   schemas:
+    # Common
+    AdminState:
+      $ref: schemas/common/admin_state.yaml
+    VerificationState:
+      $ref: schemas/common/verification_state.yaml
+    ProvisioningState:
+      $ref: schemas/common/provisioning_state.yaml
+    Empty:
+      $ref: schemas/common/empty.yaml
+
+    # Provider
     Provider:
-      $ref: schemas/provider.yaml#/Provider
+      $ref: schemas/provider/provider.yaml
+    ListProvidersResponse:
+      $ref: schemas/provider/list_providers_response.yaml
+
+    # Environment
     Environment:
-      $ref: schemas/environment.yaml#/Environment
+      $ref: schemas/environment/environment.yaml
+    ProviderSites:
+      $ref: schemas/environment/provider_sites.yaml
+    EnvironmentVisibility:
+      $ref: schemas/environment/environment_visibility.yaml
+    ListEnvironmentsResponse:
+      $ref: schemas/environment/list_environments_response.yaml
+    ConfirmActivationKeyRequest:
+      $ref: schemas/environment/confirm_activation_key_request.yaml
+    ActivationKey:
+      $ref: schemas/environment/activation_key.yaml
+    ConfirmActivationKeyResponse:
+      $ref: schemas/environment/confirm_activation_key_response.yaml
+
+    # Interconnect
     Interconnect:
-      $ref: schemas/interconnect.yaml#/Interconnect
+      $ref: schemas/interconnect/interconnect.yaml
+    InterconnectState:
+      $ref: schemas/interconnect/interconnect_state.yaml
+    ListInterconnectsResponse:
+      $ref: schemas/interconnect/list_interconnects_response.yaml
+
+    # Channel
     Channel:
-      $ref: schemas/channel.yaml#/Channel
+      $ref: schemas/channel/channel.yaml
+    ListChannelsResponse:
+      $ref: schemas/channel/list_channels_response.yaml
+    NotifyMaintenanceRequest:
+      $ref: schemas/channel/notify_maintenance_request.yaml
+    MaintenanceEvent:
+      $ref: schemas/channel/maintenance_event.yaml
+    GetMaintenanceEventsResponse:
+      $ref: schemas/channel/get_maintenance_events_response.yaml
+
+    # Connection
     Connection:
-      $ref: schemas/connection.yaml#/Connection
+      $ref: schemas/connection/connection.yaml
+    FeatureGuidance:
+      $ref: schemas/connection/feature_guidance.yaml
+    L3BaseGuidance:
+      $ref: schemas/connection/l3_base_guidance.yaml
+    ASNRange:
+      $ref: schemas/connection/asn_range.yaml
+    SubnetGuidance:
+      $ref: schemas/connection/subnet_guidance.yaml
+    VLANRange:
+      $ref: schemas/connection/vlan_range.yaml
+    MTURange:
+      $ref: schemas/connection/mtu_range.yaml
+    ListConnectionsResponse:
+      $ref: schemas/connection/list_connections_response.yaml
+    GenerateFeatureGuidanceRequest:
+      $ref: schemas/connection/generate_feature_guidance_request.yaml
+    GenerateFeatureGuidanceResponse:
+      $ref: schemas/connection/generate_feature_guidance_response.yaml
+    NotifyConnectionStatusRequest:
+      $ref: schemas/connection/notify_connection_status_request.yaml
+
+    # Feature
     Feature:
-      $ref: schemas/feature.yaml#/Feature
+      $ref: schemas/feature/feature.yaml
+    FeatureType:
+      $ref: schemas/feature/feature_type.yaml
+    FeatureConfig:
+      $ref: schemas/feature/feature_config.yaml
+    L3BaseConfig:
+      $ref: schemas/feature/l3_base_config.yaml
+    ProviderBgpConfig:
+      $ref: schemas/feature/provider_bgp_config.yaml
+    ListFeaturesResponse:
+      $ref: schemas/feature/list_features_response.yaml
+
+    # MacSecKey
     MacSecKey:
-      $ref: schemas/macseckey.yaml#/MacSecKey
+      $ref: schemas/macseckey/mac_sec_key.yaml
+    ListMacSecKeysResponse:
+      $ref: schemas/macseckey/list_mac_sec_keys_response.yaml
+
+    # Issues
     Issue:
-      $ref: schemas/issues.yaml#/Issue
+      $ref: schemas/issues/issue.yaml
+    State:
+      $ref: schemas/issues/state.yaml
+    Priority:
+      $ref: schemas/issues/priority.yaml
+    IssueContext:
+      $ref: schemas/issues/issue_context.yaml
+    ChannelContext:
+      $ref: schemas/issues/channel_context.yaml
+    ConnectionContext:
+      $ref: schemas/issues/connection_context.yaml
+    FeatureContext:
+      $ref: schemas/issues/feature_context.yaml
+    InterconnectContext:
+      $ref: schemas/issues/interconnect_context.yaml
+    Comment:
+      $ref: schemas/issues/comment.yaml
+    AddCommentRequest:
+      $ref: schemas/issues/add_comment_request.yaml
+    AddCommentResponse:
+      $ref: schemas/issues/add_comment_response.yaml
+    CloseIssueRequest:
+      $ref: schemas/issues/close_issue_request.yaml
+    CloseIssueResponse:
+      $ref: schemas/issues/close_issue_response.yaml
+    ListCommentsResponse:
+      $ref: schemas/issues/list_comments_response.yaml
+    ListIssuesResponse:
+      $ref: schemas/issues/list_issues_response.yaml
   parameters:
     provider:
       $ref: parameters/_index.yaml#/parameters/provider

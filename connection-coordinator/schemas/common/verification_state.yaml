@@ -1,0 +1,8 @@
+description: |-
+  Enum that describes the verification state of a resource.
+  VERIFICATION_STATE_UNVERIFIED - Verification is pending and not ready for production traffic.
+  VERIFICATION_STATE_VERIFIED - Verification is complete and ready for production traffic.
+enum:
+- VERIFICATION_STATE_UNVERIFIED
+- VERIFICATION_STATE_VERIFIED
+type: string

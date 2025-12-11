@@ -1,0 +1,100 @@
+get:
+  description: List all features associated with a given connection.
+  operationId: ListFeatures
+  parameters:
+  - $ref: "../../parameters/_index.yaml#/parameters/provider"
+  - $ref: "../../parameters/_index.yaml#/parameters/environment"
+  - $ref: "../../parameters/_index.yaml#/parameters/interconnect"
+  - $ref: "../../parameters/_index.yaml#/parameters/connection"
+  - description: |-
+      The maximum number of features to return. The service may return fewer
+      than this value.
+    explode: true
+    in: query
+    name: pageSize
+    required: false
+    schema:
+      format: int32
+      type: integer
+    style: form
+  - description: |-
+      A page token, received from a previous `ListFeatures` call.
+      Provide this to retrieve the subsequent page.
+
+      When paginating, all other parameters provided to `ListFeatures` must
+      match the call that provided the page token.
+    explode: true
+    in: query
+    name: pageToken
+    required: false
+    schema:
+      type: string
+    style: form
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/feature/list_features_response.yaml"
+      description: Successful operation
+  security: []
+  tags:
+  - Features
+post:
+  description: |-
+    Create a new feature associated with a connection.
+
+    Multiple feature creation requests for the same resource may be sent by a
+    remote provider simultaneously.  The server provider must ensure that any
+    resource reservations are performed sequentially across those requests to
+    prevent race conditions.
+
+    Typical feature creation flow:
+
+    1. Create server connection.
+    2. Request feature guidance for connection.
+    3. Select desired configuration parameters from guidance and create local
+    feature.
+    4. Create server feature.
+    5. Await finalization.
+
+    If *any* errors occur in the described flow, the remote provider is
+    responsible for reconciling the server's state to determine if an existing
+    request is in flight, retrying the provisioning flow with new parameters,
+    or cleaning up resources and rejecting the customer's provisioning request.
+
+    Errors:
+      409: CONFLICT. Returned when a server detect concurrent updates to the
+      resource.
+  operationId: CreateFeature
+  parameters:
+  - $ref: "../../parameters/_index.yaml#/parameters/provider"
+  - $ref: "../../parameters/_index.yaml#/parameters/environment"
+  - $ref: "../../parameters/_index.yaml#/parameters/interconnect"
+  - $ref: "../../parameters/_index.yaml#/parameters/connection"
+  - description: |-
+      Required. The ID to use for the feature, which will become the final component of
+      the feature's resource name.
+    explode: true
+    in: query
+    name: featureId
+    required: true
+    schema:
+      type: string
+    style: form
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../../schemas/feature/feature.yaml"
+    description: Required. The feature to create.
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/feature/feature.yaml"
+      description: Successful operation
+  security: []
+  tags:
+  - Features

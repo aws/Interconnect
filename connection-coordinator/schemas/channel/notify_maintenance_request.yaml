@@ -1,0 +1,20 @@
+description: |-
+  A notification from a remote provider that a maintenance has been updated on
+  a channel.
+example:
+  events:
+  - maintenanceId: maintenanceId
+    startTime: 2000-01-23T04:56:07.000+00:00
+    endTime: 2000-01-23T04:56:07.000+00:00
+  - maintenanceId: maintenanceId
+    startTime: 2000-01-23T04:56:07.000+00:00
+    endTime: 2000-01-23T04:56:07.000+00:00
+properties:
+  events:
+    description: |-
+      All maintenance events associated with the channel. At the time of sending
+      the notification.
+    items:
+      $ref: "maintenance_event.yaml"
+    type: array
+type: object

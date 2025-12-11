@@ -1,0 +1,15 @@
+enum:
+- PRIORITY_UNSPECIFIED
+- PRIORITY_P0
+- PRIORITY_P1
+- PRIORITY_P2
+- PRIORITY_P3
+- PRIORITY_P4
+type: string
+x-google-enum-descriptions:
+- Unspecified priority.
+- Highest priority.
+- High priority.
+- Medium priority.
+- Low priority.
+- Lowest priority.

@@ -1,0 +1,22 @@
+description: A maintenance event scheduled or in progress associated with a
+  channel.
+example:
+  maintenanceId: maintenanceId
+  startTime: 2000-01-23T04:56:07.000+00:00
+  endTime: 2000-01-23T04:56:07.000+00:00
+properties:
+  startTime:
+    description: The timestamp when a maintenance will start or started in the
+      past.
+    format: date-time
+    type: string
+  endTime:
+    description: The timestamp when a maintenance will end.
+    format: date-time
+    type: string
+  maintenanceId:
+    description: |-
+      An opaque maintenance identifier that can be used when communicating with
+      a provider to uniquely identify the maintenance event.
+    type: string
+type: object

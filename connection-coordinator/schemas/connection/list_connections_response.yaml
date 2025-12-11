@@ -1,0 +1,26 @@
+description: Response for obtaining multiple connection resources.
+example:
+  nextPageToken: nextPageToken
+  connections:
+  - name: name
+    adminState: ""
+    activationKey: activationKey
+    verificationState: ""
+    bandwidthMbps: 0
+  - name: name
+    adminState: ""
+    activationKey: activationKey
+    verificationState: ""
+    bandwidthMbps: 0
+properties:
+  connections:
+    description: The connections from the specified provider.
+    items:
+      $ref: "connection.yaml"
+    type: array
+  nextPageToken:
+    description: |-
+      A token, which can be sent as `page_token` to retrieve the next page.
+      If this field is omitted, there are no subsequent pages.
+    type: string
+type: object

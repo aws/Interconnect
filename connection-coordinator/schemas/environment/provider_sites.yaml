@@ -1,0 +1,16 @@
+description: A mapping of a provider id to their API and display names for sites.
+example:
+  site: site
+  providerId: providerId
+  displayName: displayName
+properties:
+  providerId:
+    description: Which provider this site data is associated with.
+    type: string
+  site:
+    description: A provider specific site name (e.g. us-east4).
+    type: string
+  displayName:
+    description: A display name for the site for use in customer facing UI.
+    type: string
+type: object

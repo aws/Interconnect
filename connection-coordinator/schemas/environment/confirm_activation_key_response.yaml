@@ -1,0 +1,10 @@
+description: |-
+  Response from a provider about the validity of the key and any additional
+  metadata that is needed for turn up.
+example:
+  keyValid: true
+properties:
+  keyValid:
+    description: Indicates if the remote CSP believes this key is valid.
+    type: boolean
+type: object

@@ -1,0 +1,81 @@
+delete:
+  description: Delete a specific connection.
+  operationId: DeleteConnection
+  parameters:
+  - $ref: "../../parameters/_index.yaml#/parameters/provider"
+  - $ref: "../../parameters/_index.yaml#/parameters/environment"
+  - $ref: "../../parameters/_index.yaml#/parameters/interconnect"
+  - $ref: "../../parameters/_index.yaml#/parameters/connection"
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/common/empty.yaml"
+      description: Successful operation
+  security: []
+  tags:
+  - Connections
+get:
+  description: Get details about a specific connection.
+  operationId: GetConnection
+  parameters:
+  - $ref: "../../parameters/_index.yaml#/parameters/provider"
+  - $ref: "../../parameters/_index.yaml#/parameters/environment"
+  - $ref: "../../parameters/_index.yaml#/parameters/interconnect"
+  - $ref: "../../parameters/_index.yaml#/parameters/connection"
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/connection/connection.yaml"
+      description: Successful operation
+  security: []
+  tags:
+  - Connections
+patch:
+  description: |-
+    Update a specific connection's attributes.
+
+    When calling this API if the field being updated is synchronized between
+    the providers, the remote provider should update their local connection
+    state before requesting an update to the server provider resource.  When
+    requesting an update to a connection, all remote provider update requests
+    must be rejected.
+
+    Errors:
+      409: CONFLICT. Returned when a server detect concurrent updates to the
+      resource.
+  operationId: UpdateConnection
+  parameters:
+  - $ref: "../../parameters/_index.yaml#/parameters/provider"
+  - $ref: "../../parameters/_index.yaml#/parameters/environment"
+  - $ref: "../../parameters/_index.yaml#/parameters/interconnect"
+  - $ref: "../../parameters/_index.yaml#/parameters/connection"
+  - description: The list of fields to update.
+    explode: true
+    in: query
+    name: updateMask
+    required: false
+    schema:
+      format: fieldmask
+      pattern: "^(\\s*[^,\\s.]+(\\s*[,.]\\s*[^,\\s.]+)*)?$"
+      type: string
+    style: form
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "../../schemas/connection/connection.yaml"
+    description: Required. The connection to update.
+  responses:
+    default:
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/connection/connection.yaml"
+      description: Successful operation
+  security: []
+  tags:
+  - Connections

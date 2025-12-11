@@ -1,0 +1,15 @@
+description: 'List issue comments response body. By default, comments are sorted
+  by create_time in descending order.'
+properties:
+  comments:
+    description: The list of Comments
+    items:
+      $ref: "comment.yaml"
+    type: array
+  nextPageToken:
+    description: 'A token that can be sent as `page_token` to retrieve the next
+      page.
+
+      If this field is omitted, there are no subsequent pages.'
+    type: string
+type: object
