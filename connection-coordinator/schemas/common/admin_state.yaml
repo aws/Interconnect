@@ -1,8 +1,0 @@
-description: |
-  Enum that describes the admin state of a resource.
-  ADMIN_STATE_ENABLED - A provider has administratively enabled a resource.
-  ADMIN_STATE_DISABLED - A provider has administratively disabled a resource.
-enum:
-- ADMIN_STATE_ENABLED
-- ADMIN_STATE_DISABLED
-type: string

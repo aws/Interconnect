@@ -1,9 +1,0 @@
-description: A feature experiencing an issue and any relevant context associated
-  with it.
-properties:
-  feature:
-    description: Required. Feature experincing issues.
-    type: string
-required:
-- feature
-type: object

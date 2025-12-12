@@ -1,0 +1,59 @@
+AllInterconnects:
+  get:
+    description: List all interconnects associated with a specified environment.
+    operationId: ListInterconnects
+    parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/provider"
+    - $ref: "../parameters/_index.yaml#/parameters/environment"
+    - description: |-
+        The maximum number of interconnects to return. The service may return fewer
+        than this value.
+      explode: true
+      in: query
+      name: pageSize
+      required: false
+      schema:
+        format: int32
+        type: integer
+      style: form
+    - description: |-
+        A page token, received from a previous `ListInterconnects` call.
+        Provide this to retrieve the subsequent page.
+
+        When paginating, all other parameters provided to `ListInterconnects` must
+        match the call that provided the page token.
+      explode: true
+      in: query
+      name: pageToken
+      required: false
+      schema:
+        type: string
+      style: form
+    responses:
+      default:
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/interconnect.yaml#/ListInterconnectsResponse"
+        description: Successful operation
+    security: []
+    tags:
+    - Interconnects
+OneInterconnect:
+  get:
+    description: Get details about a specific interconnect.
+    operationId: GetInterconnect
+    parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/provider"
+    - $ref: "../parameters/_index.yaml#/parameters/environment"
+    - $ref: "../parameters/_index.yaml#/parameters/interconnect"
+    responses:
+      default:
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/interconnect.yaml#/Interconnect"
+        description: Successful operation
+    security: []
+    tags:
+    - Interconnects

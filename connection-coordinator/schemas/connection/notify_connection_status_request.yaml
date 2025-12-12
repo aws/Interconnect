@@ -1,4 +1,0 @@
-description: |-
-  A notification from a remote provider that a connection's status has been
-  updated.
-type: object

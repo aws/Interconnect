@@ -1,9 +1,0 @@
-description: Add a comment to an issue.
-properties:
-  comment:
-    allOf:
-    - $ref: "comment.yaml"
-    description: Required. The comment to add.
-required:
-- comment
-type: object

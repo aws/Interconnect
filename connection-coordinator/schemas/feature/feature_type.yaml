@@ -1,5 +1,0 @@
-description: FEATURE_TYPE_L3_BASE - Primary feature used to connect Layer 3
-  traffic.
-enum:
-- FEATURE_TYPE_L3_BASE
-type: string

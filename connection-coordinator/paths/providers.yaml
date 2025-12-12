@@ -1,0 +1,30 @@
+AllProviders:
+  get:
+    description: Get details on a specific provider managed by this server.
+    operationId: ListProviders
+    responses:
+      default:
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/provider.yaml#/ListProvidersResponse"
+        description: Successful operation
+    security: []
+    tags:
+    - Providers
+OneProvider:
+  get:
+    description: Get details on a specific provider managed by this server.
+    operationId: GetProvider
+    parameters:
+      - $ref: "../parameters/_index.yaml#/parameters/provider"
+    responses:
+      default:
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/provider.yaml#/Provider"
+        description: Successful operation
+    security: []
+    tags:
+    - Providers

@@ -1,0 +1,114 @@
+Interconnect:
+  description: |-
+    Interconnect resources describe a group of redundant physical links between
+    providers that are used to provision redundant connections for a customer.
+
+    Interconnect resource 'name' and 'supported_connection_size_mbps' are
+    exchanged between providers at setup time.  This allows both providers to
+    call each other's respective APIs with a shared resource key and lookup
+    additional dynamic details about the connectivity.
+
+    All other fields are controlled by the server provider.
+  example:
+    supportedFeatures:
+    - FEATURE_TYPE_L3_BASE
+    - FEATURE_TYPE_L3_BASE
+    name: name
+    state: ""
+    supportedConnectionSizeMbps:
+    - 0
+    - 0
+    maxBandwidthMbps: 6
+  properties:
+    name:
+      description: Identifier. Unique identifier for the Interconnect resource.
+      type: string
+    supportedConnectionSizeMbps:
+      description: |-
+        Output only. A list of Mbps connection sizes supported on the interconnect.  This field
+        must contain all supported connection sizes defined in the parent
+        environment but may include additional sizes specific to this interconnect.
+      items:
+        format: int32
+        type: integer
+      readOnly: true
+      type: array
+    supportedFeatures:
+      description: |-
+        Output only. A list of features supported by the interconnect.  Any child connections of
+        this interconnect may have the specified features configured on them. This
+        field must contain all supported features defined in the parent
+        environment but may include additional features specific to this
+        interconnect.
+      items:
+        $ref: "feature.yaml#/FeatureType"
+      readOnly: true
+      type: array
+    state:
+      allOf:
+      - $ref: "#/InterconnectState"
+      description: |-
+        Output only. The operational state of the interconnect used to control connection
+        provisioning.
+      readOnly: true
+    maxBandwidthMbps:
+      description: |-
+        Output only. Specified the aggregate connection bandwidth that can be configured on the
+        interconnect.  Generally this value matches the minimum channel bandwidth
+        across all channels associated with the interconnect.  However, this field
+        allows a a provider to limit the total connection bandwidth below the
+        aggregate physical capacity.
+
+        If not respected by the remote provider, connection creation that exceeds
+        this threshold will fail.
+      format: int32
+      readOnly: true
+      type: integer
+  type: object
+InterconnectState:
+  description: |-
+    Enum that describes the state of an Interconnect.
+    INTERCONNECT_STATE_PENDING - Provisioning is pending and not ready for production traffic.
+    INTERCONNECT_STATE_ACTIVE - Provisioning is complete and ready for production traffic.
+    INTERCONNECT_STATE_CLOSED - Functional for current customers but closed to new connections.
+  enum:
+  - INTERCONNECT_STATE_PENDING
+  - INTERCONNECT_STATE_ACTIVE
+  - INTERCONNECT_STATE_CLOSED
+  type: string
+
+ListInterconnectsResponse:
+  description: Response for obtaining multiple interconnect resources.
+  example:
+    interconnects:
+    - supportedFeatures:
+      - FEATURE_TYPE_L3_BASE
+      - FEATURE_TYPE_L3_BASE
+      name: name
+      state: ""
+      supportedConnectionSizeMbps:
+      - 0
+      - 0
+      maxBandwidthMbps: 6
+    - supportedFeatures:
+      - FEATURE_TYPE_L3_BASE
+      - FEATURE_TYPE_L3_BASE
+      name: name
+      state: ""
+      supportedConnectionSizeMbps:
+      - 0
+      - 0
+      maxBandwidthMbps: 6
+    nextPageToken: nextPageToken
+  properties:
+    interconnects:
+      description: The interconnects from the specified provider.
+      items:
+        $ref: "#/Interconnect"
+      type: array
+    nextPageToken:
+      description: |-
+        A token, which can be sent as `page_token` to retrieve the next page.
+        If this field is omitted, there are no subsequent pages.
+      type: string
+  type: object
