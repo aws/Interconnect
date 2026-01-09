@@ -16,7 +16,7 @@ MacSecKey:
     active: true
   properties:
     name:
-      description: Identifier. A unique identifer for the macSecKey resource.
+      description: Identifier. A unique identifier for the macSecKey resource.
       type: string
     cak:
       description: MACsec protocol CAK.
