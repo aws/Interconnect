@@ -35,7 +35,7 @@ IssueContext:
   - ISSUE_CONTEXT_INTERCONNECT_ISSUE
   type: string
   x-google-enum-descriptions:
-  - 'Unspecified context, when set the caller may create an issue with arbirary
+  - 'Unspecified context, when set the caller may create an issue with arbitrary
 
     content and set context as needed.'
   - 'The issue is related to a connection issue.
@@ -74,7 +74,7 @@ FeatureContext:
     with it.
   properties:
     feature:
-      description: Required. Feature experincing issues.
+      description: Required. Feature experiencing issues.
       type: string
   required:
   - feature

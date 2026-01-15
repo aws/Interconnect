@@ -52,7 +52,7 @@ Overall, this `CreateConnection` operation needs to determine at least the follo
 - Environment
 - Bandwidth
 
-#### Rmote CSP Account ID
+#### Remote CSP Account ID
 
 When creating the connection, the customer must supply a means of identifying which account on the other CSP they intend to connect.  In the case of AWS, this would be the account number, and in the case of GCP, this would be the Project Name.  This is used to ensure that only a single destination account can accept the details of this specific connection when it is time for the later confirmation step.
 
