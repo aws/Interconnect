@@ -28,24 +28,6 @@ Priority:
   - Medium priority.
   - Low priority.
   - Lowest priority.
-IssueContext:
-  enum:
-  - ISSUE_CONTEXT_UNSPECIFIED
-  - ISSUE_CONTEXT_CONNECTION_ISSUE
-  - ISSUE_CONTEXT_INTERCONNECT_ISSUE
-  type: string
-  x-google-enum-descriptions:
-  - 'Unspecified context, when set the caller may create an issue with arbitrary
-
-    content and set context as needed.'
-  - 'The issue is related to a connection issue.
-
-
-    The following context is required: ConnectionContext'
-  - 'The issue is related to an interconnect issue.
-
-
-    The following context is required: InterconnectContext'
 ChannelContext:
   description: A channel experiencing an issue and any relevant context associated
     with it.
@@ -105,16 +87,7 @@ Issue:
     issue.  These resources may have additional metadata associated with them
     to
 
-    further describe the issue.
-
-
-    To further standardize the information within a request, the IssueContext
-
-    describes a preset issue type that a provider must be capable of handling.
-
-    This issue type may require specific context be provided in the request.  If
-
-    so, the provider may reject the request if that context is not provided.'
+    further describe the issue.'
   properties:
     body:
       description: Required. Issue body.  Core content of the issue.
@@ -148,13 +121,6 @@ Issue:
       items:
         $ref: '../schemas/issues.yaml#/InterconnectContext'
       type: array
-    issueContext:
-      allOf:
-      - $ref: '../schemas/issues.yaml#/IssueContext'
-      description: 'Optional. The type of issue associated with resources defined
-        within the connection
-
-        coordinator.'
     localIssueId:
       description: 'Output only. Opaque identifier for the local provider.  This
         identifier allows you to
