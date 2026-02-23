@@ -25,7 +25,7 @@ Provider:
     information about the server provider (such as display names).
   example:
     displayName: displayName
-    name: name
+    name: providers/my-provider
   properties:
     name:
       description: |-
@@ -51,9 +51,9 @@ ListProvidersResponse:
   example:
     providers:
     - displayName: displayName
-      name: name
+      name: providers/my-provider
     - displayName: displayName
-      name: name
+      name: providers/my-provider
     nextPageToken: nextPageToken
   properties:
     environments:
