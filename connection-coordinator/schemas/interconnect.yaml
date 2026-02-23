@@ -13,7 +13,7 @@ Interconnect:
     supportedFeatures:
     - FEATURE_TYPE_L3_BASE
     - FEATURE_TYPE_L3_BASE
-    name: name
+    name: providers/my-provider/environments/my-environment/interconnects/my-interconnect
     state: ""
     supportedConnectionSizeMbps:
     - 0
@@ -84,7 +84,7 @@ ListInterconnectsResponse:
     - supportedFeatures:
       - FEATURE_TYPE_L3_BASE
       - FEATURE_TYPE_L3_BASE
-      name: name
+      name: providers/my-provider/environments/my-environment/interconnects/my-interconnect
       state: ""
       supportedConnectionSizeMbps:
       - 0
@@ -93,7 +93,7 @@ ListInterconnectsResponse:
     - supportedFeatures:
       - FEATURE_TYPE_L3_BASE
       - FEATURE_TYPE_L3_BASE
-      name: name
+      name: providers/my-provider/environments/my-environment/interconnects/my-interconnect
       state: ""
       supportedConnectionSizeMbps:
       - 0

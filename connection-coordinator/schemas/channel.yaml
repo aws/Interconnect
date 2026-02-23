@@ -17,7 +17,7 @@ Channel:
     demarc: demarc
     crossConnectManagerProvider: crossConnectManagerProvider
     channelMemberSizeGbps: 6
-    name: name
+    name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
     adminState: ""
     macsecManagerProvider: macsecManagerProvider
     aggregateChannelSizeGbps: 0
@@ -82,7 +82,7 @@ ListChannelsResponse:
     - demarc: demarc
       crossConnectManagerProvider: crossConnectManagerProvider
       channelMemberSizeGbps: 6
-      name: name
+      name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
       adminState: ""
       macsecManagerProvider: macsecManagerProvider
       aggregateChannelSizeGbps: 0
@@ -90,7 +90,7 @@ ListChannelsResponse:
     - demarc: demarc
       crossConnectManagerProvider: crossConnectManagerProvider
       channelMemberSizeGbps: 6
-      name: name
+      name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
       adminState: ""
       macsecManagerProvider: macsecManagerProvider
       aggregateChannelSizeGbps: 0

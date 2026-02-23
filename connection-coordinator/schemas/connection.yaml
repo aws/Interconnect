@@ -15,7 +15,7 @@ Connection:
     5. When deleted, the server provider is responsible for invalidating the key
         material associated with the connection to avoid accidental reuse.
   example:
-    name: name
+    name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection
     adminState: ""
     activationKey: activationKey
     verificationState: ""
@@ -243,12 +243,12 @@ ListConnectionsResponse:
   example:
     nextPageToken: nextPageToken
     connections:
-    - name: name
+    - name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection
       adminState: ""
       activationKey: activationKey
       verificationState: ""
       bandwidthMbps: 0
-    - name: name
+    - name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection
       adminState: ""
       activationKey: activationKey
       verificationState: ""
@@ -278,10 +278,10 @@ GenerateFeatureGuidanceResponse:
     featureGuidance:
     - l3BaseGuidance: ""
       featureType: ""
-      channel: channel
+      channel: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
     - l3BaseGuidance: ""
       featureType: ""
-      channel: channel
+      channel: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
   properties:
     featureGuidance:
       description: |-

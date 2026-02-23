@@ -9,7 +9,7 @@ MacSecKey:
     When creating the MacSecKey, the `startTime` on the created object MUST
     be set by the server to the current time when the request was accepted.
   example:
-    name: name
+    name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel/macSecKeys/my-macSecKey
     cak: MACsec CAK
     ckn: MACsec CKN
     startTime: 2000-01-23T04:56:07.000+00:00

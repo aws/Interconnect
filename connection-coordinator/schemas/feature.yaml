@@ -3,8 +3,8 @@ Feature:
     Feature resources describe all configuration per-channel that is required to
     enable a feature for a specified connection.
   example:
-    name: name
-    channel: channel
+    name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection/features/my-feature
+    channel: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
     featureConfig: ""
     provisioningState: ""
   properties:
@@ -127,12 +127,12 @@ ListFeaturesResponse:
   description: Response for obtaining multiple feature resources.
   example:
     features:
-    - name: name
-      channel: channel
+    - name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection/features/my-feature
+      channel: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
       featureConfig: ""
       provisioningState: ""
-    - name: name
-      channel: channel
+    - name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection/features/my-feature
+      channel: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
       featureConfig: ""
       provisioningState: ""
     nextPageToken: nextPageToken

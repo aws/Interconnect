@@ -21,7 +21,7 @@ AllMacSecKeys:
       content:
         application/json:
           example:
-            name: name
+            name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel/macSecKeys/my-macSecKey
             cak: MACsec CAK
             ckn: MACsec CKN 
           schema:
