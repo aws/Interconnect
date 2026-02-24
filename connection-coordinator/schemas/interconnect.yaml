@@ -21,7 +21,10 @@ Interconnect:
     maxBandwidthMbps: 6
   properties:
     name:
-      description: Identifier. Unique identifier for the Interconnect resource.
+      description: |-
+        Identifier. Unique identifier for the Interconnect resource.
+
+        Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}
       type: string
     supportedConnectionSizeMbps:
       description: |-
