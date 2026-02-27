@@ -29,7 +29,10 @@ Environment:
     - 0
   properties:
     name:
-      description: Identifier. Unique identifier for an Environment resource.
+      description: |-
+        Identifier. Unique identifier for an Environment resource.
+
+        Format: providers/{provider}/environments/{environment}
       type: string
     providerSites:
       description: |-
@@ -87,7 +90,10 @@ ProviderSites:
     displayName: displayName
   properties:
     providerId:
-      description: Which provider this site data is associated with.
+      description: |-
+        Which provider this site data is associated with.
+
+        Format: providers/{provider}
       type: string
     site:
       description: A provider specific site name (e.g. us-east4).

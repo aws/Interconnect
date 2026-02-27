@@ -1,6 +1,6 @@
 parameters:
   provider:
-    description: Resource ID segment making up resource `name`.
+    description: Resource ID segment making up resource `id`.
     explode: false
     in: path
     name: provider
@@ -10,7 +10,7 @@ parameters:
     style: simple
 
   environment:
-    description: Resource ID segment making up resource `name`.
+    description: Resource ID segment making up resource `id`.
     explode: false
     in: path
     name: environment
@@ -20,7 +20,7 @@ parameters:
     style: simple
 
   interconnect:
-    description: Resource ID segment making up resource `name`.
+    description: Resource ID segment making up resource `id`.
     explode: false
     in: path
     name: interconnect
@@ -30,7 +30,7 @@ parameters:
     style: simple
 
   channel:
-    description: Resource ID segment making up resource `name`.
+    description: Resource ID segment making up resource `id`.
     explode: false
     in: path
     name: channel
@@ -40,7 +40,7 @@ parameters:
     style: simple
 
   connection:
-    description: Resource ID segment making up resource `name`.
+    description: Resource ID segment making up resource `id`.
     explode: false
     in: path
     name: connection
@@ -50,7 +50,7 @@ parameters:
     style: simple
 
   feature:
-    description: Resource ID segment making up resource `name`.
+    description: Resource ID segment making up resource `id`.
     explode: false
     in: path
     name: feature
@@ -60,7 +60,7 @@ parameters:
     style: simple
 
   macSecKey:
-    description: Resource ID segment making up resource `name`.
+    description: Resource ID segment making up resource `id`.
     explode: false
     in: path
     name: macSecKey
@@ -70,7 +70,7 @@ parameters:
     style: simple
 
   issue:
-    description: Resource ID segment making up resource `name`.
+    description: Resource ID segment making up resource `id`.
     explode: false
     in: path
     name: issue

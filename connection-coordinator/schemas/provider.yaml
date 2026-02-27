@@ -36,6 +36,8 @@ Provider:
         opensource project, that uniquely identifies them.  When accessing a remote
         cloud connectivity server, the provider will use their provider ID to
         request and create resources within the remote server.
+
+        Format: providers/{provider}
       type: string
     displayName:
       description: |-

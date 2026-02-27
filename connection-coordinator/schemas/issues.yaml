@@ -51,7 +51,10 @@ ChannelContext:
     with it.
   properties:
     channel:
-      description: Required. Channel experiencing issues.
+      description: |-
+        Required. Channel experiencing issues.
+
+        Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}
       type: string
   required:
   - channel
@@ -64,7 +67,10 @@ ConnectionContext:
     it.'
   properties:
     connection:
-      description: Required. Connection experiencing issues.
+      description: |-
+        Required. Connection experiencing issues.
+
+        Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}
       type: string
   required:
   - connection
@@ -74,7 +80,10 @@ FeatureContext:
     with it.
   properties:
     feature:
-      description: Required. Feature experiencing issues.
+      description: |-
+        Required. Feature experiencing issues.
+
+        Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features/{feature}
       type: string
   required:
   - feature
@@ -86,7 +95,10 @@ InterconnectContext:
     with it.'
   properties:
     interconnect:
-      description: Required. Interconnect experiencing issues.
+      description: |-
+        Required. Interconnect experiencing issues.
+
+        Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}
       type: string
   required:
   - interconnect
@@ -163,11 +175,10 @@ Issue:
       readOnly: true
       type: string
     name:
-      description: 'Identifier. The name of the issue resource.
+      description: |-
+        Identifier. The name of the issue resource.
 
-        Format:
-
-        projects/{project}/locations/{location}/providers/{provider}/issues/{issue}'
+        Format: providers/{provider}/issues/{issue}
       type: string
       x-google-identifier: true
     priority:

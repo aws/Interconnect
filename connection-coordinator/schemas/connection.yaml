@@ -22,7 +22,10 @@ Connection:
     bandwidthMbps: 0
   properties:
     name:
-      description: Identifier. A unique identifier for the connection resource.
+      description: |-
+        Identifier. A unique identifier for the connection resource.
+
+        Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}
       type: string
     activationKey:
       description: Identifier. A activation key associated with the connection.
@@ -63,7 +66,10 @@ FeatureGuidance:
       - $ref: "feature.yaml#/FeatureType"
       description: The feature type associated with this guidance.
     channel:
-      description: Relative URI of the Channel this guidance applies to.
+      description: |-
+        Relative URI of the Channel this guidance applies to.
+
+        Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}
       type: string
     l3BaseGuidance:
       allOf:

@@ -24,7 +24,10 @@ Channel:
     obfuscatedDeviceId: obfuscatedDeviceId
   properties:
     name:
-      description: Identifier. Unique identifier for the Channel resource.
+      description: |-
+        Identifier. Unique identifier for the Channel resource.
+
+        Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}
       type: string
     macsecManagerProvider:
       description: |-
@@ -32,6 +35,8 @@ Channel:
 
         This field must prevent the non-manager provider from calling Macsec
         APIs.
+
+        Format: providers/{provider}
       readOnly: true
       type: string
     crossConnectManagerProvider:
@@ -39,6 +44,8 @@ Channel:
         Output only. The URI of the provider responsible for managing physical crossconnects.  This
         includes cross connect costs and any troubleshooting requests to the vendor
         providing the cross connect.
+
+        Format: providers/{provider}
       readOnly: true
       type: string
     aggregateChannelSizeGbps:
