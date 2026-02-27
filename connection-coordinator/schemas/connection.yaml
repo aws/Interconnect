@@ -179,12 +179,10 @@ ASNRange:
   properties:
     start:
       description: First ASN (inclusive).
-      format: int32
-      type: integer
+      type: uint32
     stop:
       description: Last ASN (inclusive).
-      format: int32
-      type: integer
+      type: uint32
   type: object
 
 SubnetGuidance:

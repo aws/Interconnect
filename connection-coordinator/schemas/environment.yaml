@@ -168,14 +168,22 @@ ListEnvironmentsResponse:
 ConfirmActivationKeyRequest:
   description: |-
     Request to confirm the validity of a activation key provided by a remote
-    provider.
+    provider. The key should be provided in the `encodedKey` field as a base64
+    encoded string.
   example:
-    key: ""
+    encodedKey: ""
   properties:
     key:
       allOf:
       - $ref: "#/ActivationKey"
-      description: Activation key to be confirmed.
+      description: |-
+        DEPRECATED: Use `encodedKey` instead.
+        Activation key to be confirmed.
+      deprecated: true
+    encodedKey:
+      type: string
+      format: byte
+      description: Base64 encoded ActivationKey to be confirmed.
   type: object
 
 ActivationKey:
