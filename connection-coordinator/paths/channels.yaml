@@ -64,6 +64,10 @@ NotifyMaintenance:
     description: |-
       Notify a remote provider that maintenance events associated with a channel
       have been modified.
+
+      The receiving provider must refresh the specified channel resource
+      immediately after receiving this notification to ensure their local state
+      is consistent with the server provider.
     operationId: NotifyMaintenance
     parameters:
     - $ref: "../parameters/_index.yaml#/parameters/provider"

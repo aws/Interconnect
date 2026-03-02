@@ -208,6 +208,10 @@ NotifyConnectionStatus:
       2) A notification when an existing channel transitions from FINALIZED
           to PENDING.  This happens when features change and need finalization.
       3) A notification when a channel is FINALIZED after a feature change.
+
+      The receiving provider must refresh the specified connection resource
+      immediately after receiving this notification to ensure their local state
+      is consistent with the server provider.
     operationId: NotifyConnectionStatus
     parameters:
     - $ref: "../parameters/_index.yaml#/parameters/provider"
