@@ -177,7 +177,30 @@ must be reached:
 1.  Establish Customer Intent
 2.  Negotiate Connection/Feature Parameters
 3.  Provision Appropriate Features
-
+```mermaid
+sequenceDiagram
+Customer->>Provider A: Request activation key Provider specific API;
+Customer->>Provider B: Enter activation key from Provider A Provider specific API;
+Provider B->>Provider A: ConfirmActiviationKey;
+Provider B->>Provider B: CreateConnection;
+Note right of Provider B: Provider B ALWAYS creates<br/>resources before requesting<br/>to create resources.
+Provider B->>Provider A: CreateConnection;
+Provider B->>Provider A: GenerateFeatureGuidance;
+Provider B->>Provider A: CreateFeature 1;
+Provider B->>Provider B: CreateFeature 1;
+Provider B->>Provider A: CreateFeature 2;
+Provider B->>Provider B: CreateFeature 2;
+Note right of Provider B: All features may be provisioned<br/>simultaneously if desired
+Provider B->>Provider A: CreateFeature 3;
+Provider B->>Provider B: CreateFeature 3;
+Provider B->>Provider A: CreateFeature 4;
+Provider B->>Provider B: CreateFeature 4;
+Provider B->>Provider A: NotifyConnectionStatus;
+Note right of Provider B: Notifications can be sent <br/>in any order between providers;
+Provider A->>Provider B: NotifyConnectionStatus;
+Provider A->>Customer: Connection Established Provider specific API;
+Provider B->>Customer: Connection Established Provider specific API;
+```
 ### **Establish Customer Intent**
 
 The first and most important milestone is to establish the customer’s intent
