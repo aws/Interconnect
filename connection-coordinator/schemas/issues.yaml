@@ -50,14 +50,14 @@ ChannelContext:
   description: A channel experiencing an issue and any relevant context associated
     with it.
   properties:
-    channel:
+    name:
       description: |-
         Required. Channel experiencing issues.
 
         Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}
       type: string
   required:
-  - channel
+  - name
   type: object
 
 ConnectionContext:
@@ -66,27 +66,27 @@ ConnectionContext:
 
     it.'
   properties:
-    connection:
+    name:
       description: |-
         Required. Connection experiencing issues.
 
         Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}
       type: string
   required:
-  - connection
+  - name
   type: object
 FeatureContext:
   description: A feature experiencing an issue and any relevant context associated
     with it.
   properties:
-    feature:
+    name:
       description: |-
         Required. Feature experiencing issues.
 
         Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features/{feature}
       type: string
   required:
-  - feature
+  - name
   type: object
 InterconnectContext:
   description: 'An interconnect experiencing an issue and any relevant context
@@ -94,14 +94,14 @@ InterconnectContext:
 
     with it.'
   properties:
-    interconnect:
+    name:
       description: |-
         Required. Interconnect experiencing issues.
 
         Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}
       type: string
   required:
-  - interconnect
+  - name
   type: object
 Issue:
   description: 'An issue as expressed by a remote provider related to shared resources
