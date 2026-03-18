@@ -60,6 +60,7 @@ FeatureGuidance:
     l3BaseGuidance: ""
     featureType: ""
     channel: channel
+    channelAdminState: ""
   properties:
     featureType:
       allOf:
@@ -71,6 +72,11 @@ FeatureGuidance:
 
         Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}
       type: string
+    channelAdminState:
+      allOf:
+      - $ref: common.yaml#/AdminState
+      description: Output only. The administrative status of the channel resource.
+      readOnly: true
     l3BaseGuidance:
       allOf:
       - $ref: "#/L3BaseGuidance"
@@ -283,9 +289,11 @@ GenerateFeatureGuidanceResponse:
     - l3BaseGuidance: ""
       featureType: ""
       channel: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
+      channelAdminState: ""
     - l3BaseGuidance: ""
       featureType: ""
       channel: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
+      channelAdminState: ""
   properties:
     featureGuidance:
       description: |-
