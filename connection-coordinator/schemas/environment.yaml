@@ -24,6 +24,8 @@ Environment:
     - FEATURE_TYPE_L3_BASE
     name: providers/my-provider/environments/my-environment
     environmentVisibility: ""
+    deferralTimeoutHours: 0
+    deferConnectionProvisioning: false
     supportedConnectionSizeMbps:
     - 0
     - 0
@@ -80,6 +82,17 @@ Environment:
         Output only. Controls the visibility of this environment in the provider's customer
         facing APIs.
       readOnly: true
+    deferralTimeoutHours:
+      description: |-
+        The number of hours the deferring provider will wait for the remote provider
+        to finalize the connection before declaring a failure.
+      format: int32
+      type: integer
+    deferConnectionProvisioning:
+      description: |-
+        Indicates that the active provider should always defer connections to the
+        passive provider in this environment
+      type: boolean
   type: object
 
 ProviderSites:
@@ -132,6 +145,8 @@ ListEnvironmentsResponse:
       - FEATURE_TYPE_L3_BASE
       name: providers/my-provider/environments/my-environment
       environmentVisibility: ""
+      deferralTimeoutHours: 0
+      deferConnectionProvisioning: false
       supportedConnectionSizeMbps:
       - 0
       - 0
@@ -148,6 +163,8 @@ ListEnvironmentsResponse:
       - FEATURE_TYPE_L3_BASE
       name: name
       environmentVisibility: ""
+      deferralTimeoutHours: 0
+      deferConnectionProvisioning: false
       supportedConnectionSizeMbps:
       - 0
       - 0

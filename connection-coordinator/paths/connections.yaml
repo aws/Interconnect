@@ -48,6 +48,11 @@ AllConnections:
       resource locally.  This ensures the remote provider can handle server
       failures (retries and cleanup).
 
+      If a provider wishes to defer active provisioning responsibilities to the
+      remote provider, they should set the `deferConnection` flag to `true`
+      in the request body.  The receiving provider may refuse to accept the
+      provisioning responsibility and reject the request with a 400 error code.
+
       If connection creation fails, the provider should restart their call flow
       refreshing any environment and interconnect details used to create the
       request and retry.  When retrying, client should use an exponential

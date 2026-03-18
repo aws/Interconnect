@@ -23,6 +23,10 @@ The `channel` object is a single LAG that resides as part of an `interconnect`. 
 ### Connection
 The `connection` object represents an explicit customer request for a specific bandwidth across a specific `environment`.  After a customer requests a `connection`, our APIs will be used to negotiate the specific `interconnect` to place this `connection` on.  The customer has no influence over the `interconnect` choice.
 
+Providers may also use the `connection` resource to coordinate handover of
+provisioning responsibilities via a deferral mechanism, either during
+connection creation or through a dedicated deferral API.
+
 ### Feature
 The `feature` object is an extensible object to describe anything that we may want to support on a given connection.  At this time, there is only one feature type, which is Channel Config.
 
