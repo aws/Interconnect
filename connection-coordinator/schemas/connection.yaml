@@ -20,6 +20,7 @@ Connection:
     activationKey: activationKey
     verificationState: ""
     bandwidthMbps: 0
+    deferProvisioning: false
   properties:
     name:
       description: |-
@@ -47,6 +48,13 @@ Connection:
       - $ref: common.yaml#/VerificationState
       description: Output only. The verification state of the connection resource.
       readOnly: true
+    deferProvisioning:
+      description: |-
+        When set to true during a CreateConnection request, this indicates that
+        the caller is deferring active provisioning responsibilities to the
+        receiver. Note, the receiver may refuse to accept the provisioning responsiblity
+        and reject the request with a 400 error code.
+      type: boolean
   type: object
   
 FeatureGuidance:
