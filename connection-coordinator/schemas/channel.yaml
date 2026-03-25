@@ -172,3 +172,9 @@ GetMaintenanceEventsResponse:
         $ref: "#/MaintenanceEvent"
       type: array
   type: object
+
+RotateMacSecKeyRequest:
+  description: |-
+    A request to notify the channel owner to rotate the MACsec key
+    associated with the channel.
+  type: object
