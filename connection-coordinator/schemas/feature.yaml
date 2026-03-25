@@ -3,7 +3,7 @@ Feature:
     Feature resources describe all configuration per-channel that is required to
     enable a feature for a specified connection.
   example:
-    name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection/features/my-feature
+    name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection/features/my-interconnect-my-feature
     channel: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
     featureConfig: ""
     provisioningState: ""
@@ -13,6 +13,10 @@ Feature:
         Identifier. A unique identifier for the feature resource.
 
         Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features/{feature}
+
+        The {feature} identifier must follow the format {interconnectname}-{feature},
+        where {interconnectname} is the name of the parent interconnect resource.
+        This ensures feature names are unique across interconnects.
       type: string
     channel:
       description: |-
@@ -133,11 +137,11 @@ ListFeaturesResponse:
   description: Response for obtaining multiple feature resources.
   example:
     features:
-    - name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection/features/my-feature
+    - name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection/features/my-interconnect-my-feature
       channel: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
       featureConfig: ""
       provisioningState: ""
-    - name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection/features/my-feature
+    - name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection/features/my-interconnect-my-feature
       channel: providers/my-provider/environments/my-environment/interconnects/my-interconnect/channels/my-channel
       featureConfig: ""
       provisioningState: ""
