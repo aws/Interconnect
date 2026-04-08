@@ -173,8 +173,13 @@ GetMaintenanceEventsResponse:
       type: array
   type: object
 
-RotateMacSecKeyRequest:
+MacSecKeyRotationRequest:
   description: |-
-    A request to notify the channel owner to rotate the MACsec key
-    associated with the channel.
+    A request from the non-owner provider to the channel owner to
+    perform a MACsec key rotation on the channel.
+  properties:
+    reason:
+      description: |-
+        The reason for requesting the MACsec key rotation.
+      type: string
   type: object
