@@ -55,8 +55,11 @@ AllConnections:
 
       If connection creation fails, the provider should restart their call flow
       refreshing any environment and interconnect details used to create the
-      request and retry.  When retrying, client should use an exponential
-      backoff strategy for up to 60 seconds.
+      request and retry. When retrying, clients SHOULD use an exponential
+      backoff strategy with jitter and a bounded retry budget (RECOMMENDED: up
+      to 5 attempts and/or up to ~60 seconds total). After exhausting the retry
+      budget, callers SHOULD reconcile remote state (Get/List) before
+      proceeding.
 
       Errors:
           409: CONFLICT. The resource is being created or has already been
