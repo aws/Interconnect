@@ -17,10 +17,11 @@ Connection:
   example:
     name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection
     adminState: ""
-    activationKey: activationKey
     verificationState: ""
     bandwidthMbps: 0
     deferProvisioning: false
+    sourceData:
+      encodedKey: <Base64 Activation Key>
   properties:
     name:
       description: |-
@@ -29,7 +30,11 @@ Connection:
         Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}
       type: string
     activationKey:
-      description: Identifier. A activation key associated with the connection.
+      deprecated: true
+      description: |-
+        DEPRECATED - Should use sourceData instead.
+        If both sourceData and activationKey are present, sourceData must be used.
+        The activation key associated with the connection.
       type: string
     bandwidthMbps:
       description: |-
@@ -55,6 +60,14 @@ Connection:
         receiver. Note, the receiver may refuse to accept the provisioning responsiblity
         and reject the request with a 400 error code.
       type: boolean
+    sourceData:
+      description: |-
+        The source that should be consulted/confirmed as part of the creation request.
+      oneOf:
+      - $ref: "#/EncodedKey"
+      - $ref: "#/SourceConnectionName"
+        
+
   type: object
   
 FeatureGuidance:
@@ -320,3 +333,19 @@ NotifyConnectionStatusRequest:
     A notification from a remote provider that a connection's status has been
     updated.
   type: object
+
+EncodedKey:
+  description: |-
+    Base64 Encoded ActivationKey
+  required: [encodedKey]
+  properties:
+    encodedKey:
+      type: string
+
+SourceConnectionName:
+  description: |-
+    The name of the source connection.
+  required: [sourceConnectionName]
+  properties:
+    sourceConnectionName:
+      type: string
