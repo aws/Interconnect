@@ -26,6 +26,8 @@ paths:
     $ref: paths/channels.yaml#/OneChannel
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/NotifyMaintenance:
     $ref: paths/channels.yaml#/NotifyMaintenance
+  /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/RequestMacSecKeyRotation:
+    $ref: paths/channels.yaml#/RequestMacSecKeyRotation
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/maintenanceEvents:
     $ref: paths/channels.yaml#/GetMaintenanceEvents
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}/channels/{channel}/macSecKeys:

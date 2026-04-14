@@ -109,3 +109,35 @@ GetMaintenanceEvents:
     security: []
     tags:
     - Channels
+RequestMacSecKeyRotation:
+  post:
+    description: |-
+      Request the channel owner to perform a MACsec key rotation on a
+      channel.
+
+      This API allows the non-owner provider to indicate that a key
+      rotation is needed. Upon receiving this request, the channel owner
+      should rotate the MACsec key locally and then update the MACsec
+      key on the partner side using the MACsec key management APIs.
+    operationId: RequestMacSecKeyRotation
+    parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/provider"
+    - $ref: "../parameters/_index.yaml#/parameters/environment"
+    - $ref: "../parameters/_index.yaml#/parameters/interconnect"
+    - $ref: "../parameters/_index.yaml#/parameters/channel"
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/channel.yaml#/MacSecKeyRotationRequest"
+      description: The request body.
+    responses:
+      default:
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/common.yaml#/Empty"
+        description: Successful operation
+    security: []
+    tags:
+    - Channels

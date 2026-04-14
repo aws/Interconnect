@@ -493,6 +493,14 @@ safest option to avoid ever sending unencrypted traffic. Also, because each key
 is completely independent of one another, we are often able to simply “fail
 forward” and skip directly past a failed key rather than trying to move back.
 
+### **Requesting a Key Rotation**
+
+If the non-owner provider determines that a key rotation is needed (e.g., due
+to a security concern or a compliance requirement), they may call
+**RequestMacSecKeyRotation** on the channel owner, optionally providing a
+reason. Upon receiving this request, the channel owner should initiate the
+standard rotation protocol described above.
+
 ## **Confused Deputy Resolution \[WIP\]**
 
 In order to ensure that customer impacting actions—specifically
