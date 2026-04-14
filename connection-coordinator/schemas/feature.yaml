@@ -13,6 +13,12 @@ Feature:
         Identifier. A unique identifier for the feature resource.
 
         Format: providers/{provider}/environments/{environment}/interconnects/{interconnect}/connections/{connection}/features/{feature}
+
+        Feature IDs MUST be treated as opaque identifiers. UUIDv4 is RECOMMENDED.
+
+        Providers SHOULD enforce that at most one FEATURE_TYPE_L3_BASE Feature exists
+        per (connection, channel). Attempts to create a second L3_BASE feature for the
+        same (connection, channel) SHOULD be rejected with HTTP 409 (Conflict).
       type: string
     channel:
       description: |-
