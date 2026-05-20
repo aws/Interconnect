@@ -236,6 +236,15 @@ ActivationKey:
         Required. User supplied account id/number on the destination CSP.
         Receiving service MUST verify that the activation key was provided from an authorized user of this account.
       type: string
+    context:
+      description: |-
+        Optional. Arbitrary key-value pairs set by the key creator. This can be used to pass additional context or metadata.
+        Providers MAY enforce a maximum character or size limit for this field.
+      type: object
+      additionalProperties: true
+      example:
+        customKey1: "any value we want"
+        anotherKey: "etc"
   required:
   - connectionSizeMbps
   - destinationAccountId
