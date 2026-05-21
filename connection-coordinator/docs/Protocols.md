@@ -45,7 +45,7 @@ used as a way of ensuring resource level permissions and isolation server side.
 Each participating **Provider** is assigned a generally accepted identifier of
 their choosing (within reasonable naming schemes). For example, as AWS, we
 would make requests toward partners using `/providers/aws` as the URI prefix,
-and GCP would instead be making the requests using `/providers/gcp` .
+and GCP would instead be making the requests using `/providers/gcp`.
 
 This object’s primary focus in the API is to serve as a resource delineation
 point. If the service you implement is going to be interacting with multiple
@@ -147,7 +147,7 @@ bandwidth that spans the chosen **environment**.
 
 The **feature** is an extensible object to describe anything that we may want
 to support on a given **connection**. At this time, there is only one feature
-type, which is a “channel config”.
+type, which is a "channel config".
 
 The channel config feature is used to convey a negotiated set of L3 parameters
 including ASN, VLAN, IPv4 Subnet, IPv6 Subnet, and MTU. Each of these
@@ -384,23 +384,20 @@ migrating them to a separate Interconnect which still has the space. As this is
 a managed service offering to customers these Migrations are entirely seamless
 to the customer, but to ensure it goes that we need to follow a few protocols.
 
-A migration is started by a provider issuing a **CreateConnection** call using
-the existing Shared UUID of the connection that is being migrated. This is done
-to emphasize a “Make Before Break” policy. The “new” **Connection** should be
-created following the same pattern as with any **CreateConnection** call, the
-only difference being that these connections all funnel back to the same
-customer object. When the “Make” path is complete, the customer will
+A migration is started by a provider issuing a new **CreateConnection** call
+using the existing connection identifier as the `sourceData` of the
+connection. The "new" **Connection** should be created following the same
+pattern as with any **CreateConnection** call, the only difference being
+that these connections all funnel back to the same customer object as the
+`sourceData` connection. When the "Make" path is complete, the customer will
 temporarily have double the number of typical connections.
 
 Once the new bring-ups are complete, the next objective is to be able to safely
-call **DeleteConnection** on the old **Connection** resource. Remember that
-even though we are reusing the same UUID, there are actually still two separate
-IDs in the object space by full identifier since each of the Connections is
-parented by different interconnects. In order to ensure that no packet loss
-occurs while removing the old features, the migration initiator should start by
-de-preferencing the routes on those respective features. Failure to do so is
-likely to lead to brief packet loss across the old feature links. This should
-be the same procedure used when deleting features.
+call **DeleteConnection** on the old **Connection** resource. In order to ensure
+that no packet loss occurs while removing the old features, the migration initiator
+should start by de-preferencing the routes on those respective features. Failure
+to do so is likely to lead to brief packet loss across the old feature links. This
+should be the same procedure used when deleting features.
 
 Once it is safe to do so from a routing perspective, the call to
 **DeleteConnection** can be made to actually begin the process of removing the
@@ -426,7 +423,7 @@ peer is responsible for fetching these events using the
 Given that we are looking to coordinate across such a large number of routers
 overall, it is worth pointing out that a device may actually have multiple
 channels on it, each belonging to separate interconnect objects. Care should be
-taken to avoid “deadlocking” maintenance due to overlapping interconnects.
+taken to avoid "deadlocking" maintenance due to overlapping interconnects.
 Imagine a case where interconnect 1 is placed on the following devices:
 \[a,b,c,d\] and interconnect two is placed on \[a,e,c,d\]. If a third
 interconnect was placed on \[b,e\], you would no longer be able to perform
@@ -464,7 +461,7 @@ particular:
 
 *   Only 1 **Channel** within an **Interconnect** can be in rotation at any
     given time.
-*   There is a two hour “bake time” after rotating a **Channel** where no other
+*   There is a two hour "bake time" after rotating a **Channel** where no other
     rotations can occur.
 *   A **Channel** can only be rotated by the provider listed in the
     **`macsecManagerProvider`** field of the **Channel** itself.
@@ -484,14 +481,14 @@ otherwise.
 
 These same protocols can also be used for the initialization of the first
 **MacSecKey** objects on a **Channel**. The only difference is that multiple
-**Channels** can be rotated in parallel and the “bake time” merely applies to
+**Channels** can be rotated in parallel and the "bake time" merely applies to
 future rotations on the same **Channel.** Once this protocol is working, this
 is much more streamlined than manually configuring the keys.
 
 As for failure modes, it is generally agreed that **Fail** **Closed** is the
 safest option to avoid ever sending unencrypted traffic. Also, because each key
-is completely independent of one another, we are often able to simply “fail
-forward” and skip directly past a failed key rather than trying to move back.
+is completely independent of one another, we are often able to simply "fail
+forward" and skip directly past a failed key rather than trying to move back.
 
 ### **Requesting a Key Rotation**
 
