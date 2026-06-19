@@ -35,11 +35,25 @@ Feature:
       - $ref: "common.yaml#/ProvisioningState"
       description: Output only. The provisioning state of the feature.
       readOnly: true
+    updatable:
+      description: |-
+        Output only. Indicates whether the feature supports updates via the
+        UpdateFeature operation. Defaults to false if not present.
+
+        A provider may declare a feature as non-updatable even if the feature
+        type generally supports updates.
+      type: boolean
+      default: false
+      readOnly: true
   type: object
 
 FeatureType:
-  description: FEATURE_TYPE_L3_BASE - Primary feature used to connect Layer 3
-    traffic.
+  description: |-
+    The type of feature.
+
+    Each feature type documents whether it supports updates via UpdateFeature:
+    - FEATURE_TYPE_L3_BASE: NOT updatable. Primary feature used to connect
+      Layer 3 traffic.
   enum:
   - FEATURE_TYPE_L3_BASE
   type: string
