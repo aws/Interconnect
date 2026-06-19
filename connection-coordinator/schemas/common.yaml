@@ -38,3 +38,26 @@ Empty:
     A generic empty message that you can re-use to avoid defining duplicated
     empty messages in your APIs.
   type: object
+
+ConnectionType:
+  description: |-
+    Enum that describes the type of a connection.
+    CONNECTION_TYPE_STANDARD - Standard connections are ordinary customer
+      connections.
+    CONNECTION_TYPE_TEST - Test connections are reserved for provider
+      development teams to support testing and canary workflows. Test
+      connections may be provisioned at bandwidths below the minimum supported
+      size (e.g. 50 Mbps). Bandwidth consumed by test connections must not
+      count against interconnect or environment capacity totals. Partners may
+      enforce a small quota on the number of active test connections.
+    CONNECTION_TYPE_MONITORING - Monitoring connections are reserved for
+      active monitoring sessions between providers. Monitoring connections may
+      be provisioned at a small bandwidth and must not tally against
+      interconnect or environment capacity totals. The quota is 1 per
+      interconnect (not per environment) to enable monitoring across all
+      underlying links.
+  enum:
+  - CONNECTION_TYPE_STANDARD
+  - CONNECTION_TYPE_TEST
+  - CONNECTION_TYPE_MONITORING
+  type: string
