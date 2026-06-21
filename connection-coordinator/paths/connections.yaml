@@ -3,6 +3,7 @@ AllConnections:
     description: List all connections associated with a given interconnect.
     operationId: ListConnections
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -63,6 +64,7 @@ AllConnections:
           created.
     operationId: CreateConnection
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -97,6 +99,7 @@ OneConnection:
     description: Delete a specific connection.
     operationId: DeleteConnection
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -115,6 +118,7 @@ OneConnection:
     description: Get details about a specific connection.
     operationId: GetConnection
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -144,6 +148,7 @@ OneConnection:
         resource.
     operationId: UpdateConnection
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -181,6 +186,7 @@ GenerateFeatureGuidance:
       with a given connection and return the results.
     operationId: GenerateFeatureGuidance
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -219,6 +225,7 @@ NotifyConnectionStatus:
       is consistent with the server provider.
     operationId: NotifyConnectionStatus
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"

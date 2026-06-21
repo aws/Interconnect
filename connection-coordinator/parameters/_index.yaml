@@ -79,6 +79,17 @@ parameters:
       type: string
     style: simple
 
+  x-request-id:
+    description: |-
+      Unique identifier for the request, used for tracing and idempotency.
+    in: query
+    name: requestId
+    required: false
+    schema:
+      type: string
+      format: uuid
+      example: 550e8400-e29b-41d4-a716-446655440000
+
   alt:
     description: Data format for response.
     explode: true
