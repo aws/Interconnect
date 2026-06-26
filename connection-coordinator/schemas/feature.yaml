@@ -120,7 +120,10 @@ ProviderBgpConfig:
       type: string
     asn:
       description: Required. The ASN associated with the provider.
-      type: uint32
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
     hostIpv4:
       description: Required. IPv4 address hosting BGP session for provider.
       type: string
