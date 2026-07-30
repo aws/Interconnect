@@ -66,8 +66,7 @@ Connection:
       oneOf:
       - $ref: "#/EncodedKey"
       - $ref: "#/SourceConnectionName"
-        
-
+      type: object
   type: object
   
 FeatureGuidance:
@@ -330,7 +329,6 @@ GenerateFeatureGuidanceResponse:
         provisioned on.
       items:
         $ref: "#/FeatureGuidance"
-      readOnly: true
       type: array
   type: object
 
@@ -347,6 +345,7 @@ EncodedKey:
   properties:
     encodedKey:
       type: string
+  type: object
 
 SourceConnectionName:
   description: |-
@@ -355,3 +354,4 @@ SourceConnectionName:
   properties:
     sourceConnectionName:
       type: string
+  type: object
