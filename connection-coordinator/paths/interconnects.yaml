@@ -3,6 +3,7 @@ AllInterconnects:
     description: List all interconnects associated with a specified environment.
     operationId: ListInterconnects
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - description: |-
@@ -44,6 +45,7 @@ OneInterconnect:
     description: Get details about a specific interconnect.
     operationId: GetInterconnect
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"

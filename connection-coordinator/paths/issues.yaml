@@ -3,6 +3,7 @@ AllIssues:
     description: Lists Issues in a given project and location.
     operationId: ListIssues
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - description: 'Optional. The maximum number of issues to return. The service
         may return fewer than
@@ -37,6 +38,7 @@ AllIssues:
     description: Creates a new Issue in a given project and location.
     operationId: CreateIssue
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - description: 'Required. The ID to use for the issue, which will become the
         final component of the issue''s resource name.'
@@ -66,6 +68,7 @@ OneIssue:
     description: Gets details of a single Issue.
     operationId: GetIssue
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/issue"
     responses:
@@ -83,6 +86,7 @@ CloseIssue:
     description: Closes an Issue.
     operationId: CloseIssue
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/issue"
     requestBody:
@@ -106,6 +110,7 @@ AddComment:
     description: Adds a comment to a Issue.
     operationId: AddComment
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/issue"
     requestBody:
@@ -129,6 +134,7 @@ ListComments:
     description: Lists comments for a Issue.
     operationId: ListComments
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/issue"
     - description: 'Optional. The maximum number of comments to return. The service
