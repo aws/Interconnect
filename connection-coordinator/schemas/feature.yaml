@@ -54,6 +54,8 @@ FeatureConfig:
       allOf:
       - $ref: "#/L3BaseConfig"
       description: All configuration associated with the FEATURE_TYPE_L3_BASE
+  required:
+    - featureType
   type: object
 L3BaseConfig:
   description: All FEATURE_TYPE_L3_BASE configuration.
@@ -105,6 +107,11 @@ L3BaseConfig:
     md5BgpPassword:
       description: Shared MD5 password for BGP sessions.
       type: string
+  required:
+    - md5BgpPassword
+    - mtuBytes
+    - providerBgpConfigs
+    - vlanId
   type: object
 ProviderBgpConfig:
   description: |-
@@ -130,6 +137,9 @@ ProviderBgpConfig:
     hostIpv6:
       description: Optional. IPv6 address hosting BGP session for provider.
       type: string
+  required:
+    - asn
+    - provider
   type: object
 
 ListFeaturesResponse:

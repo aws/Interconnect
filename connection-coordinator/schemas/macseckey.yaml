@@ -40,6 +40,7 @@ MacSecKey:
         While `active=true`, this macSecKey cannot be deleted.
       type: boolean
       readOnly: true
+  type: object
 
 ListMacSecKeysResponse:
   description: Response for obtaining multiple MacSecKey resources
