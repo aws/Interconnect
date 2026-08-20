@@ -108,8 +108,6 @@ L3BaseConfig:
       description: Shared MD5 password for BGP sessions.
       type: string
   required:
-    - ipv4Subnet
-    - ipv4SubnetPrefixLength
     - md5BgpPassword
     - mtuBytes
     - providerBgpConfigs
@@ -141,7 +139,6 @@ ProviderBgpConfig:
       type: string
   required:
     - asn
-    - hostIpv4
     - provider
   type: object
 
