@@ -381,9 +381,20 @@ EncryptionParameters:
     publicKey:
       description: |-
         The PEM-encoded public key for encrypting activation key contents
-        destined for this environment. Rotated weekly; the environment accepts
+        destined for this environment. Providers are recommended to rotate at
+        least weekly, though the rotation cadence is ultimately agreed between
+        the two partners based on their security needs. The environment accepts
         keys encrypted with any of the 4 most recent public keys.
       type: string
+    nextRotationAt:
+      description: |-
+        The UTC timestamp at which this environment will next rotate its
+        public/private key pair. Informs the caller when to fetch a fresh
+        public key; a cached key remains usable until then. Optional -- absent
+        if the environment does not expose a scheduled rotation time.
+      type: string
+      format: date-time
+      example: "2026-09-08T00:00:00Z"
     algorithm:
       description: |-
         The asymmetric encryption algorithm to use when encrypting the inner
