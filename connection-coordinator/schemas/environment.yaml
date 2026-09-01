@@ -210,11 +210,25 @@ ActivationKey:
     field determines which variant applies.
 
     All versions share a common envelope containing `version` and
-    `destinationEnvironmentUri`. The remaining fields differ by version.
+    `destinationEnvironmentUri`, declared here. The remaining fields differ by
+    version and are contributed by the matching `oneOf` variant.
   type: object
   required:
     - version
     - destinationEnvironmentUri
+  properties:
+    version:
+      description: |-
+        Required. The activation key version. Determines which variant
+        (ActivationKeyV1 or ActivationKeyV2) applies.
+      type: integer
+      format: int32
+    destinationEnvironmentUri:
+      description: |-
+        Required. The destination environment URI this activation key is
+        intended for use at. Always in cleartext so the receiver can identify
+        which environment (and, for version 2, which private key) to use.
+      type: string
   discriminator:
     propertyName: version
     mapping:
@@ -227,7 +241,9 @@ ActivationKey:
 ActivationKeyV1:
   description: |-
     Version 1 activation key. All fields are present in cleartext within the
-    base64-decoded JSON structure.
+    base64-decoded JSON structure. In addition to the shared envelope fields
+    (`version`, `destinationEnvironmentUri`), this variant carries the
+    connection parameters directly.
   type: object
   required:
     - version
@@ -241,11 +257,6 @@ ActivationKeyV1:
       type: integer
       format: int32
       enum: [1]
-    destinationEnvironmentUri:
-      description: |-
-        Required. The destination environment URI this activation key is
-        intended for use at.
-      type: string
     sharedConnectionUuid:
       description: |-
         Required. The UUID assigned to this connection to be used by both
@@ -265,9 +276,9 @@ ActivationKeyV1:
 ActivationKeyV2:
   description: |-
     Version 2 activation key. Sensitive fields are encrypted using the
-    destination environment's public key. Only `version` and
-    `destinationEnvironmentUri` remain in cleartext to enable routing and
-    key selection for decryption.
+    destination environment's public key. Only the shared envelope fields
+    (`version`, `destinationEnvironmentUri`) remain in cleartext to enable
+    routing and key selection for decryption.
   type: object
   required:
     - version
@@ -279,12 +290,6 @@ ActivationKeyV2:
       type: integer
       format: int32
       enum: [2]
-    destinationEnvironmentUri:
-      description: |-
-        Required. The destination environment URI this activation key is
-        intended for use at. Remains in cleartext so the receiver can
-        identify which environment (and private key) to use for decryption.
-      type: string
     encryptedContents:
       description: |-
         Required. Base64-encoded ciphertext containing the encrypted inner
