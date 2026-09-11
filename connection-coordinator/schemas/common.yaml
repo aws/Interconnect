@@ -53,9 +53,13 @@ ConnectionType:
     CONNECTION_TYPE_MONITORING - Monitoring connections are reserved for
       active monitoring sessions between providers. Monitoring connections may
       be provisioned at a small bandwidth and must not tally against
-      interconnect or environment capacity totals. The quota is 1 per
-      interconnect (not per environment) to enable monitoring across all
-      underlying links.
+      interconnect or environment capacity totals. The quota is 2 per
+      interconnect (not per environment), one created by each provider, to
+      enable monitoring across all underlying links from either side. A
+      monitoring connection may not have a customer resource or key associated
+      with it. The local provider may apply provider-specific routing behavior
+      to enable the agreed-upon monitoring for the remote provider; the exact
+      routing configuration is left to each provider.
   enum:
   - CONNECTION_TYPE_STANDARD
   - CONNECTION_TYPE_TEST
