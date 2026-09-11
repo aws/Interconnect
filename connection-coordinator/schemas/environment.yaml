@@ -310,6 +310,7 @@ ActivationKeyEncryptedPayload:
     - sharedConnectionUuid
     - connectionSizeMbps
     - destinationAccountId
+    - sourceAccountId
   properties:
     sharedConnectionUuid:
       description: |-
@@ -325,6 +326,11 @@ ActivationKeyEncryptedPayload:
         Required. User supplied account id/number on the destination CSP.
         Receiving service MUST verify that the activation key was provided
         from an authorized user of this account.
+      type: string
+    sourceAccountId:
+      description: |-
+        Required. Account id/number of the originating (creating) provider's
+        user on the source CSP. Present only in version 2 activation keys.
       type: string
 
 ConfirmActivationKeyResponse:
