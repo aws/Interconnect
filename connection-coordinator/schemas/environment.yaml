@@ -330,7 +330,7 @@ ActivationKeyEncryptedPayload:
     sourceAccountId:
       description: |-
         Required. Account id/number of the originating (creating) provider's
-        user on the source CSP. Present only in version 2 activation keys.
+        user on the source CSP. Introduced in version 2 activation keys.
       type: string
 
 ConfirmActivationKeyResponse:
