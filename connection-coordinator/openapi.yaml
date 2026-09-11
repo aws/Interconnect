@@ -16,6 +16,8 @@ paths:
     $ref: paths/environments.yaml#/OneEnvironment
   /providers/{provider}/environments/{environment}/ConfirmActivationKey:
     $ref: paths/environments.yaml#/ConfirmActivationKey
+  /providers/{provider}/environments/{environment}/activationKeyParameters:
+    $ref: paths/environments.yaml#/ActivationKeyParameters
   /providers/{provider}/environments/{environment}/interconnects:
     $ref: paths/interconnects.yaml#/AllInterconnects
   /providers/{provider}/environments/{environment}/interconnects/{interconnect}:

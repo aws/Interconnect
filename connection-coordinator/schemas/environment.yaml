@@ -205,44 +205,133 @@ ConfirmActivationKeyRequest:
 
 ActivationKey:
   description: |-
-    Activation Keys contain all information needed by a provider to validate a
-    activation proposal between two provider.
+    The decoded activation key structure. The key is always transported as a
+    base64-encoded JSON string between providers. After decoding, the `version`
+    field determines which variant applies.
 
-    The activation key should be base64 encoded whenever it is exchanged between
-    providers.  This helps prevent accidental corruption of the key when
-    transferring it between clouds.
+    All versions share a common envelope containing `version` and
+    `destinationEnvironmentUri`, declared here. The remaining fields differ by
+    version and are contributed by the matching `oneOf` variant.
+  type: object
+  required:
+    - version
+    - destinationEnvironmentUri
   properties:
     version:
       description: |-
-        Required. Version of the ActivationKey itself. The version should
-        match the API version on the creating service.
-      format: int32
+        Required. The activation key version. Determines which variant
+        (ActivationKeyV1 or ActivationKeyV2) applies.
       type: integer
+      format: int32
     destinationEnvironmentUri:
       description: |-
         Required. The destination environment URI this activation key is
-        intended for use at.
+        intended for use at. Always in cleartext so the receiver can identify
+        which environment (and, for version 2, which private key) to use.
       type: string
+  discriminator:
+    propertyName: version
+    mapping:
+      "1": "#/ActivationKeyV1"
+      "2": "#/ActivationKeyV2"
+  oneOf:
+    - $ref: "#/ActivationKeyV1"
+    - $ref: "#/ActivationKeyV2"
+
+ActivationKeyV1:
+  description: |-
+    Version 1 activation key. All fields are present in cleartext within the
+    base64-decoded JSON structure. In addition to the shared envelope fields
+    (`version`, `destinationEnvironmentUri`), this variant carries the
+    connection parameters directly.
+  type: object
+  required:
+    - version
+    - destinationEnvironmentUri
+    - sharedConnectionUuid
+    - connectionSizeMbps
+    - destinationAccountId
+  properties:
+    version:
+      description: Activation key version. Must be `1` for this variant.
+      type: integer
+      format: int32
+      enum: [1]
     sharedConnectionUuid:
-      description: Required. The UUID assigned to this connection to be used by
-        both services.
+      description: |-
+        Required. The UUID assigned to this connection to be used by both
+        services.
       type: string
     connectionSizeMbps:
-      description: Required. Size of the connection to be provisioned in mbps.
-      format: int32
+      description: Required. Size of the connection to be provisioned in Mbps.
       type: integer
+      format: int32
     destinationAccountId:
       description: |-
         Required. User supplied account id/number on the destination CSP.
-        Receiving service MUST verify that the activation key was provided from an authorized user of this account.
+        Receiving service MUST verify that the activation key was provided
+        from an authorized user of this account.
       type: string
-  required:
-  - connectionSizeMbps
-  - destinationAccountId
-  - destinationEnvironmentUri
-  - sharedConnectionUuid
-  - version
+
+ActivationKeyV2:
+  description: |-
+    Version 2 activation key. Sensitive fields are encrypted using the
+    destination environment's public key. Only the shared envelope fields
+    (`version`, `destinationEnvironmentUri`) remain in cleartext to enable
+    routing and key selection for decryption.
   type: object
+  required:
+    - version
+    - destinationEnvironmentUri
+    - encryptedContents
+  properties:
+    version:
+      description: Activation key version. Must be `2` for this variant.
+      type: integer
+      format: int32
+      enum: [2]
+    encryptedContents:
+      description: |-
+        Required. Base64-encoded ciphertext containing the encrypted inner
+        payload. The payload is encrypted using the destination environment's
+        public key (obtained via GetActivationKeyParameters). After
+        decryption, the plaintext is a JSON object conforming to
+        ActivationKeyEncryptedPayload.
+      type: string
+      format: byte
+
+ActivationKeyEncryptedPayload:
+  description: |-
+    The plaintext JSON structure contained within the `encryptedContents` field
+    of a version 2 ActivationKey, after decryption. Contains all sensitive
+    connection parameters that are not visible in the outer envelope.
+  type: object
+  required:
+    - sharedConnectionUuid
+    - connectionSizeMbps
+    - destinationAccountId
+    - sourceAccountId
+  properties:
+    sharedConnectionUuid:
+      description: |-
+        Required. The UUID assigned to this connection to be used by both
+        services.
+      type: string
+    connectionSizeMbps:
+      description: Required. Size of the connection to be provisioned in Mbps.
+      type: integer
+      format: int32
+    destinationAccountId:
+      description: |-
+        Required. User supplied account id/number on the destination CSP.
+        Receiving service MUST verify that the activation key was provided
+        from an authorized user of this account.
+      type: string
+    sourceAccountId:
+      description: |-
+        Required. Account id/number of the originating (creating) provider's
+        user on the source CSP. Introduced in version 2 activation keys.
+      type: string
 
 ConfirmActivationKeyResponse:
   description: |-
@@ -255,3 +344,70 @@ ConfirmActivationKeyResponse:
       description: Indicates if the remote CSP believes this key is valid.
       type: boolean
   type: object
+
+GetActivationKeyParametersResponse:
+  description: |-
+    Response describing the activation key parameters for an environment.
+    Contains the supported activation key versions and encryption details
+    (if the environment supports encrypted keys).
+  type: object
+  required:
+    - supportedVersions
+  properties:
+    supportedVersions:
+      description: |-
+        The activation key versions this environment supports. The key creator
+        should prefer the highest version number in this list. For example,
+        `[1, 2]` indicates both plaintext and encrypted keys are accepted,
+        with version 2 (encrypted) preferred.
+      type: array
+      items:
+        type: integer
+        format: int32
+    encryption:
+      allOf:
+        - $ref: "#/EncryptionParameters"
+      description: |-
+        Encryption parameters for constructing a version 2 activation key.
+        Present only when the environment supports version 2 keys. Absence of
+        this field indicates the environment only supports version 1 (plaintext)
+        keys.
+
+EncryptionParameters:
+  description: |-
+    Encryption details required to construct a version 2 (encrypted) activation
+    key. The key creator uses these parameters to encrypt the inner payload
+    before constructing the activation key.
+  type: object
+  required:
+    - publicKey
+    - algorithm
+    - keyFormat
+  properties:
+    publicKey:
+      description: |-
+        The PEM-encoded public key for encrypting activation key contents
+        destined for this environment. Providers are recommended to rotate at
+        least weekly, though the rotation cadence is ultimately agreed between
+        the two partners based on their security needs. The environment accepts
+        keys encrypted with any of the 4 most recent public keys.
+      type: string
+    nextRotationAt:
+      description: |-
+        The UTC timestamp at which this environment will next rotate its
+        public/private key pair. Informs the caller when to fetch a fresh
+        public key; a cached key remains usable until then. Optional -- absent
+        if the environment does not expose a scheduled rotation time.
+      type: string
+      format: date-time
+      example: "2026-09-08T00:00:00Z"
+    algorithm:
+      description: |-
+        The asymmetric encryption algorithm to use when encrypting the inner
+        payload with the provided public key.
+      type: string
+      example: "RSA-OAEP-256"
+    keyFormat:
+      description: The encoding format of the public key.
+      type: string
+      example: "PKCS8"

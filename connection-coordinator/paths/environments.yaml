@@ -87,3 +87,28 @@ ConfirmActivationKey:
     security: []
     tags:
     - Environments
+
+ActivationKeyParameters:
+  get:
+    description: |-
+      Returns the activation key parameters for an environment. This includes
+      the supported activation key versions and encryption details for
+      constructing version 2 (encrypted) keys.
+
+      Key creators should call this endpoint (or use a recently cached response)
+      before constructing an activation key destined for this environment.
+    operationId: GetActivationKeyParameters
+    parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
+    - $ref: "../parameters/_index.yaml#/parameters/provider"
+    - $ref: "../parameters/_index.yaml#/parameters/environment"
+    responses:
+      default:
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/environment.yaml#/GetActivationKeyParametersResponse"
+        description: Successful operation
+    security: []
+    tags:
+    - Environments
