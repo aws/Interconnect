@@ -67,6 +67,13 @@ Connection:
       - $ref: "#/EncodedKey"
       - $ref: "#/SourceConnectionName"
       type: object
+    connectionType:
+      allOf:
+      - $ref: "common.yaml#/ConnectionType"
+      description: |-
+        Optional. The type of connection being created. Defaults to
+        CONNECTION_TYPE_STANDARD if not specified.
+      default: CONNECTION_TYPE_STANDARD
   type: object
   
 FeatureGuidance:
