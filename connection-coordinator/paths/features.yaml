@@ -3,6 +3,7 @@ AllFeatures:
     description: List all features associated with a given connection.
     operationId: ListFeatures
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -69,6 +70,7 @@ AllFeatures:
         resource.
     operationId: CreateFeature
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -104,6 +106,7 @@ OneFeature:
     description: Delete a specific feature.
     operationId: DeleteFeature
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -123,6 +126,7 @@ OneFeature:
     description: Get details about a specific feature.
     operationId: GetFeature
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -135,6 +139,59 @@ OneFeature:
             schema:
               $ref: "../schemas/feature.yaml#/Feature"
         description: Successful operation
+    security: []
+    tags:
+    - Features
+  patch:
+    description: |-
+      Update a specific feature's attributes.
+
+      Not all feature types support updates. If UpdateFeature is called on a
+      feature whose type does not support updates, or whose provider has
+      declared it non-updatable, the server must return 405 METHOD NOT ALLOWED.
+
+      When calling this API, the remote provider should update their local
+      feature state before requesting an update to the server provider resource.
+
+      Errors:
+        405: METHOD_NOT_ALLOWED. Returned when the feature type does not support
+        updates or the provider has declared the feature non-updatable.
+        409: CONFLICT. Returned when a server detects concurrent updates to the
+        resource.
+    operationId: UpdateFeature
+    parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/provider"
+    - $ref: "../parameters/_index.yaml#/parameters/environment"
+    - $ref: "../parameters/_index.yaml#/parameters/interconnect"
+    - $ref: "../parameters/_index.yaml#/parameters/connection"
+    - $ref: "../parameters/_index.yaml#/parameters/feature"
+    - description: The list of fields to update.
+      explode: true
+      in: query
+      name: updateMask
+      required: false
+      schema:
+        format: fieldmask
+        pattern: "^(\\s*[^,\\s.]+(\\s*[,.]\\s*[^,\\s.]+)*)?$"
+        type: string
+      style: form
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref: "../schemas/feature.yaml#/Feature"
+      description: Required. The feature to update.
+    responses:
+      default:
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/feature.yaml#/Feature"
+        description: Successful operation
+      "405":
+        description: |-
+          METHOD_NOT_ALLOWED. The feature type does not support updates or the
+          provider has declared the feature non-updatable.
     security: []
     tags:
     - Features

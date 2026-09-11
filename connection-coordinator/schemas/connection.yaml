@@ -66,6 +66,7 @@ Connection:
       oneOf:
       - $ref: "#/EncodedKey"
       - $ref: "#/SourceConnectionName"
+      type: object
     connectionType:
       allOf:
       - $ref: "common.yaml#/ConnectionType"
@@ -73,7 +74,6 @@ Connection:
         Optional. The type of connection being created. Defaults to
         CONNECTION_TYPE_STANDARD if not specified.
       default: CONNECTION_TYPE_STANDARD
-
   type: object
   
 FeatureGuidance:
@@ -212,10 +212,16 @@ ASNRange:
   properties:
     start:
       description: First ASN (inclusive).
-      type: uint32
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
     stop:
       description: Last ASN (inclusive).
-      type: uint32
+      type: integer
+      format: int64
+      minimum: 0
+      maximum: 4294967295
   type: object
 
 SubnetGuidance:
@@ -330,7 +336,6 @@ GenerateFeatureGuidanceResponse:
         provisioned on.
       items:
         $ref: "#/FeatureGuidance"
-      readOnly: true
       type: array
   type: object
 
@@ -347,6 +352,7 @@ EncodedKey:
   properties:
     encodedKey:
       type: string
+  type: object
 
 SourceConnectionName:
   description: |-
@@ -355,3 +361,4 @@ SourceConnectionName:
   properties:
     sourceConnectionName:
       type: string
+  type: object

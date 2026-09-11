@@ -3,6 +3,7 @@ AllMacSecKeys:
     description: Create a new MACsec key on the channel
     operationId: CreateMacSecKey
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -42,6 +43,7 @@ AllMacSecKeys:
     description: List all the MACsec keys associated with the channel
     operationId: ListMacSecKeys
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -62,6 +64,7 @@ OneMacSecKey:
     description: Get the specific MACsec key associated with the channel
     operationId: GetMacSecKey
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -81,6 +84,7 @@ OneMacSecKey:
     description: Delete the specific MACsec key associated with the channel
     operationId: DeleteMacSecKey
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"

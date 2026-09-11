@@ -3,6 +3,7 @@ AllChannels:
     description: List all channels associated with an interconnect.
     operationId: ListChannels
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -45,6 +46,7 @@ OneChannel:
     description: Get details about a specific channel.
     operationId: GetChannel
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -70,6 +72,7 @@ NotifyMaintenance:
       is consistent with the server provider.
     operationId: NotifyMaintenance
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -95,6 +98,7 @@ GetMaintenanceEvents:
     description: Get all maintenance events associated with a channel.
     operationId: GetMaintenanceEvents
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"
@@ -121,6 +125,7 @@ RequestMacSecKeyRotation:
       key on the partner side using the MACsec key management APIs.
     operationId: RequestMacSecKeyRotation
     parameters:
+    - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
     - $ref: "../parameters/_index.yaml#/parameters/provider"
     - $ref: "../parameters/_index.yaml#/parameters/environment"
     - $ref: "../parameters/_index.yaml#/parameters/interconnect"

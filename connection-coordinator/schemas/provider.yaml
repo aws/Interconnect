@@ -41,10 +41,9 @@ Provider:
       type: string
     displayName:
       description: |-
-        Output only. Provider name suitable for display to end users.
+        Provider name suitable for display to end users.
 
         Example: Amazon Web Services, Google Cloud Platform, Microsoft Azure, etc
-      readOnly: true
       type: string
   type: object
 
@@ -58,7 +57,7 @@ ListProvidersResponse:
       name: providers/my-provider
     nextPageToken: nextPageToken
   properties:
-    environments:
+    providers:
       description: The providers known to the remote.
       items:
         $ref: "#/Provider"
