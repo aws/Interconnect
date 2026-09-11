@@ -198,13 +198,32 @@ L3BaseGuidance:
       type: array
     maxReceivedBgpRoutePrefixes:
       description: |-
-        Maximum number of BGP route prefixes accepted by the connection.
+        Required. Maximum number of IPv4 BGP route prefixes accepted by the
+        connection.
 
         While not negotiated between providers, providers must be aware that if
         more BGP route prefixes are announced, protocol behavior will be
         undefined.
       format: int32
       type: integer
+    maxReceivedBgpRoutePrefixesIpv6:
+      description: |-
+        Optional. Maximum number of IPv6 BGP route prefixes accepted by the
+        connection.
+
+        While not negotiated between providers, providers must be aware that if
+        more BGP route prefixes are announced, protocol behavior will be
+        undefined.
+
+        If this field is omitted, the value of maxReceivedBgpRoutePrefixes is
+        also used as the IPv6 value.
+      format: int32
+      type: integer
+  required:
+  - asnRanges
+  - vlanRanges
+  - mtuRanges
+  - maxReceivedBgpRoutePrefixes
   type: object
 
 ASNRange:
