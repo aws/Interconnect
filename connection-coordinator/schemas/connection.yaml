@@ -14,6 +14,11 @@ Connection:
     4. Connections present on only one provider may be deleted after 7 days.
     5. When deleted, the server provider is responsible for invalidating the key
         material associated with the connection to avoid accidental reuse.
+
+    Draft opt-in recovery profile (docs/FeatureRecovery.md): the seven-day
+    permissions above are subject to bilateral reconciliation and authorization;
+    age alone does not permit deleting unknown in-flight or working resources.
+    This stricter cleanup rule requires explicit bilateral agreement before use.
   example:
     name: providers/my-provider/environments/my-environment/interconnects/my-interconnect/connections/my-connection
     adminState: ""

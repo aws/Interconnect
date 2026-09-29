@@ -374,6 +374,13 @@ to fulfill the connection. Each **Channel** is assigned an owner that is
 responsible for ensuring that any missing features are added to eventually
 converge on a full set of features.
 
+### **Feature Recovery Proposal**
+
+The [draft Feature Recovery and Reconciliation Protocol](FeatureRecovery.md)
+proposes explicit ownership, bounded retries, authoritative failure reporting,
+and safe replacement/cleanup rules. It requires bilateral opt-in and resolution
+of its review gates; it is not an enabled extension of the workflows above.
+
 ## **Migration Workflow \[In Progress\]**
 
 We have the ability to Migrate a Connection from one of the Interconnects

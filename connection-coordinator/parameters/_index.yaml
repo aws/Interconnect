@@ -82,6 +82,14 @@ parameters:
   x-request-id:
     description: |-
       Unique identifier for the request, used for tracing and idempotency.
+
+      Draft Feature Recovery and Reconciliation profile (docs/FeatureRecovery.md):
+      recovery mutations must supply this existing query parameter after bilateral
+      opt-in. Identical uncertain retries retain it and their resource identity
+      and body. Scope records by calling/receiving provider, operation, and full
+      target identity; reject differing content within that scope with 409.
+      Agree retention and durable retirement fences before enablement; replay
+      must not resurrect deleted resources. A new logical operation uses a new ID.
     in: query
     name: requestId
     required: false

@@ -32,8 +32,15 @@ Feature:
       description: All configuration associated with the feature.
     provisioningState:
       allOf:
-      - $ref: "common.yaml#/ProvisioningState"
+      - $ref: "#/FeatureProvisioningState"
       description: Output only. The provisioning state of the feature.
+      readOnly: true
+    failureInfo:
+      allOf:
+      - $ref: "#/FeatureFailureInfo"
+      description: |-
+        Output only. Draft recovery profile: required when this feature is FAILED
+        and omitted otherwise. Expose only after bilateral profile agreement.
       readOnly: true
     updatable:
       description: |-
@@ -45,6 +52,50 @@ Feature:
       type: boolean
       default: false
       readOnly: true
+  type: object
+
+FeatureProvisioningState:
+  description: |-
+    Feature lifecycle. PENDING and FINAL retain their existing meanings from
+    common.yaml ProvisioningState: PENDING means created with parameters reserved;
+    FINAL means configuration fully propagated and ready for production traffic.
+    Draft proposal: FAILED is terminal for this feature generation at the reporting
+    provider and requires failureInfo. Never emit FAILED without bilateral support
+    for docs/FeatureRecovery.md. Local repair occurs before declaring FAILED;
+    afterward recovery requires coordinated replacement with a new feature ID,
+    not a transition back to PENDING or FINAL. Other resource enums are unchanged.
+  enum:
+  - PROVISIONING_STATE_PENDING
+  - PROVISIONING_STATE_FINAL
+  - PROVISIONING_STATE_FAILED
+  type: string
+
+FeatureFailureInfo:
+  description: |-
+    Draft recovery profile: structured failure of the reporting provider's current
+    feature generation. Contains no secrets, customer configuration, or private
+    diagnostics. Failure code vocabulary requires bilateral agreement.
+  properties:
+    code:
+      description: Stable machine-readable failure code.
+      type: string
+    message:
+      description: Sanitized human-readable failure summary.
+      type: string
+    retryable:
+      description: |-
+        Whether a new coordinated replacement attempt may succeed. This does not
+        authorize automatic replacement, replay, or revival of the failed feature.
+      type: boolean
+    observedAt:
+      description: Time the reporting provider observed the terminal failure.
+      format: date-time
+      type: string
+  required:
+  - code
+  - message
+  - retryable
+  - observedAt
   type: object
 
 FeatureType:
