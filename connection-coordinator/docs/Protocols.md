@@ -31,7 +31,7 @@ will be expected to:
 
 API calls are also marked with additional information governing the specifics
 of their use. One such example is requests that are marked as requiring
-[Confused Deputy Resolution](https://quip-amazon.com/U4jIAxNo1B1m/Connection-Coordinator-API-General-Protocols#temp:C:deH3724743bac954f07b8c8ecefb)
+[Confused Deputy Resolution](#confused-deputy-resolution-wip)
 — callouts such as this one are not mere suggestions and are considered a
 minimum security requirement for proper API utilization.
 
@@ -55,7 +55,7 @@ offers a way for each partner to provide information that will be helpful in
 the user experience of the solution, such as getting the desired display name
 for a partner. This would also be the node at which additional context is
 provided around
-[User Cross-Cloud Authentication](https://quip-amazon.com/U4jIAxNo1B1m/Connection-Coordinator-API-General-Protocols#temp:C:deH395aad7d2e82428191348bb0c).
+[User Cross-Cloud Authentication](#confused-deputy-resolution-wip).
 
 ### **Environment**
 
@@ -152,7 +152,7 @@ type, which is a "channel config".
 The channel config feature is used to convey a negotiated set of L3 parameters
 including ASN, VLAN, IPv4 Subnet, IPv6 Subnet, and MTU. Each of these
 parameters are negotiated as part of the customer's creation using the
-[Negotiation Protocols](https://quip-amazon.com/U4jIAxNo1B1m/Connection-Coordinator-API-General-Protocols#temp:C:deH811e42b072714852b322f414b).
+[Negotiation Protocols](#negotiate-feature-parameters).
 Once again, the customer has no influence over the chosen parameters as they
 are distinctly negotiated between the two partners—the only exception being
 the ASN, which may be derived from the customer's existing network details.
