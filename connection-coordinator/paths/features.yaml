@@ -66,8 +66,9 @@ AllFeatures:
       or cleaning up resources and rejecting the customer's provisioning request.
 
       Errors:
-        409: CONFLICT. Returned when a server detect concurrent updates to the
-        resource.
+        409: CONFLICT. Use the structured reason and recoveryAction to distinguish
+        allocation conflicts, an existing feature, and an operation in progress.
+        See docs/ConflictErrors.md; not every conflict calls for new parameters.
     operationId: CreateFeature
     parameters:
     - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
@@ -92,6 +93,8 @@ AllFeatures:
             $ref: "../schemas/feature.yaml#/Feature"
       description: Required. The feature to create.
     responses:
+      "409":
+        $ref: "../openapi.yaml#/components/responses/FeatureConflict"
       default:
         content:
           application/json:
@@ -103,7 +106,11 @@ AllFeatures:
     - Features
 OneFeature:
   delete:
-    description: Delete a specific feature.
+    description: |-
+      Delete a specific feature. If an in-progress operation on the feature or
+      a shared resource prevents deletion, return 409 with reason
+      OPERATION_IN_PROGRESS and recoveryAction RETRY_WITH_BACKOFF.
+      See docs/ConflictErrors.md for retry and reconciliation requirements.
     operationId: DeleteFeature
     parameters:
     - $ref: "../parameters/_index.yaml#/parameters/x-request-id"
@@ -113,6 +120,8 @@ OneFeature:
     - $ref: "../parameters/_index.yaml#/parameters/connection"
     - $ref: "../parameters/_index.yaml#/parameters/feature"
     responses:
+      "409":
+        $ref: "../openapi.yaml#/components/responses/FeatureConflict"
       default:
         content:
           application/json:
@@ -156,8 +165,8 @@ OneFeature:
       Errors:
         405: METHOD_NOT_ALLOWED. Returned when the feature type does not support
         updates or the provider has declared the feature non-updatable.
-        409: CONFLICT. Returned when a server detects concurrent updates to the
-        resource.
+        409: CONFLICT. Use the structured reason and recoveryAction described in
+        docs/ConflictErrors.md. This does not make immutable fields updatable.
     operationId: UpdateFeature
     parameters:
     - $ref: "../parameters/_index.yaml#/parameters/provider"
@@ -182,6 +191,8 @@ OneFeature:
             $ref: "../schemas/feature.yaml#/Feature"
       description: Required. The feature to update.
     responses:
+      "409":
+        $ref: "../openapi.yaml#/components/responses/FeatureConflict"
       default:
         content:
           application/json:

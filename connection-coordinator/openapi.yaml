@@ -59,6 +59,49 @@ paths:
   /providers/{provider}/issues/{issue}/AddComment:
     $ref: paths/issues.yaml#/AddComment
 components:
+  responses:
+    FeatureConflict:
+      description: |-
+        Conflict with the requested feature's configuration or current state,
+        including a constraint on a shared resource. See docs/ConflictErrors.md.
+      headers:
+        Retry-After:
+          description: |-
+            For OPERATION_IN_PROGRESS, the server SHOULD provide an estimated
+            minimum delay before retrying, as an HTTP-date or non-negative
+            delay-seconds per RFC 9110. This is not a completion guarantee.
+          schema:
+            type: string
+      content:
+        application/json:
+          schema:
+            $ref: schemas/errors.yaml#/FeatureConflict
+          examples:
+            ipv6Conflict:
+              value:
+                code: CONFLICT
+                reason: IPV6_SUBNET_CONFLICT
+                recoveryAction: REFRESH_GUIDANCE_AND_RESELECT
+                resource: providers/peer/environments/env/interconnects/ic/connections/conn/features/feature-2
+                scopeResource: providers/peer/environments/env/interconnects/ic/connections/conn
+                conflictingResource: providers/peer/environments/env/interconnects/ic/connections/conn/features/feature-1
+                field: /featureConfig/l3BaseConfig/ipv6Subnet
+                value: "2001:db8::4/126"
+            operationInProgress:
+              value:
+                code: CONFLICT
+                reason: OPERATION_IN_PROGRESS
+                recoveryAction: RETRY_WITH_BACKOFF
+                resource: providers/peer/environments/env/interconnects/ic/connections/conn/features/feature-2
+                scopeResource: providers/peer/environments/env/interconnects/ic/connections/conn
+                conflictingResource: providers/peer/environments/env/interconnects/ic/connections/conn/features/feature-1
+            existingFeature:
+              value:
+                code: CONFLICT
+                reason: FEATURE_ALREADY_EXISTS
+                recoveryAction: GET_AND_RECONCILE
+                resource: providers/peer/environments/env/interconnects/ic/connections/conn/features/feature-1
+                conflictingResource: providers/peer/environments/env/interconnects/ic/connections/conn/features/feature-1
   schemas:
     Provider:
       $ref: schemas/provider.yaml#/Provider

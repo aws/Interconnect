@@ -1,0 +1,119 @@
+FeatureConflict:
+  description: |-
+    A machine-readable HTTP 409 response for a feature operation. See
+    docs/ConflictErrors.md for reason-specific recovery and compatibility rules.
+    This response does not establish the outcome of an earlier request or
+    authorize deletion of an existing feature or release of its reservations.
+  type: object
+  required:
+  - code
+  - reason
+  - recoveryAction
+  - resource
+  properties:
+    code:
+      type: string
+      enum:
+      - CONFLICT
+    reason:
+      type: string
+      description: Stable reason; callers must not classify errors using message.
+      enum:
+      - IPV4_SUBNET_CONFLICT
+      - IPV6_SUBNET_CONFLICT
+      - VLAN_CONFLICT
+      - FEATURE_ALREADY_EXISTS
+      - OPERATION_IN_PROGRESS
+      - CONFLICT_UNSPECIFIED
+    recoveryAction:
+      type: string
+      description: |-
+        Recovery appropriate to the reason. Unknown or inconsistent values
+        require reconciliation, not automatic parameter changes or deletion.
+      enum:
+      - REFRESH_GUIDANCE_AND_RESELECT
+      - GET_AND_RECONCILE
+      - RETRY_WITH_BACKOFF
+    resource:
+      type: string
+      minLength: 1
+      description: |-
+        The requested feature's full API resource name, including the featureId
+        query parameter for CreateFeature. This identifies the request target,
+        not necessarily the resource causing the conflict.
+    message:
+      type: string
+      description: Optional human-readable explanation; not a parsing contract.
+    conflictingResource:
+      type: string
+      minLength: 1
+      description: |-
+        Full API resource name of the existing feature or resource causing the
+        conflict, when known and visible to the caller. Required for
+        FEATURE_ALREADY_EXISTS. Omit rather than expose another customer's
+        resource or a provider-internal identifier.
+    scopeResource:
+      type: string
+      minLength: 1
+      description: |-
+        Full API resource name of the channel, connection, or other shared
+        resource whose constraint caused this conflict, when known and visible
+        to the caller. Absence does not imply feature-local uniqueness.
+    field:
+      type: string
+      description: |-
+        JSON Pointer into the submitted Feature identifying the rejected
+        allocation. Required for subnet and VLAN conflicts. For a subnet,
+        value includes the separately supplied prefix length.
+      enum:
+      - /featureConfig/l3BaseConfig/ipv4Subnet
+      - /featureConfig/l3BaseConfig/ipv6Subnet
+      - /featureConfig/l3BaseConfig/vlanId
+    value:
+      type: string
+      minLength: 1
+      description: |-
+        Rejected subnet in canonical CIDR notation, or VLAN ID as a decimal
+        string. Required for allocation conflicts. Do not include credentials
+        or configuration belonging to other customers.
+  oneOf:
+  - properties:
+      reason:
+        enum: [IPV4_SUBNET_CONFLICT]
+      recoveryAction:
+        enum: [REFRESH_GUIDANCE_AND_RESELECT]
+      field:
+        enum: [/featureConfig/l3BaseConfig/ipv4Subnet]
+    required: [field, value]
+  - properties:
+      reason:
+        enum: [IPV6_SUBNET_CONFLICT]
+      recoveryAction:
+        enum: [REFRESH_GUIDANCE_AND_RESELECT]
+      field:
+        enum: [/featureConfig/l3BaseConfig/ipv6Subnet]
+    required: [field, value]
+  - properties:
+      reason:
+        enum: [VLAN_CONFLICT]
+      recoveryAction:
+        enum: [REFRESH_GUIDANCE_AND_RESELECT]
+      field:
+        enum: [/featureConfig/l3BaseConfig/vlanId]
+    required: [field, value]
+  - properties:
+      reason:
+        enum: [FEATURE_ALREADY_EXISTS]
+      recoveryAction:
+        enum: [GET_AND_RECONCILE]
+    required: [conflictingResource]
+  - properties:
+      reason:
+        enum: [OPERATION_IN_PROGRESS]
+      recoveryAction:
+        enum: [RETRY_WITH_BACKOFF]
+  - properties:
+      reason:
+        enum: [CONFLICT_UNSPECIFIED]
+      recoveryAction:
+        enum: [GET_AND_RECONCILE]
