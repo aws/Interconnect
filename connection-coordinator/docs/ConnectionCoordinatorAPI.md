@@ -126,7 +126,7 @@ Once the `FeatureGuidance` has been received, we can start to submit actual nego
 
 The process of creating a `Feature` involves quite literally creating a `Feature` object on the corresponding `Connection`, using the `CreateFeature` operation.  A successful creation will elicit a 200 response.
 
-If something is not quite right, then the responder should reject the configuration with `409 Conflict`.  Upon receiving the 409, the negotiator should restart this channel's workflow from the `FeatureGuidance` step above, making use of the form which includes query params channelId and featureType.
+If the proposed allocation conflicts with existing state, the responder should reject it with `409 Conflict`. The [structured conflict response](ConflictErrors.md) distinguishes IPv4, IPv6, and VLAN allocation conflicts from an existing feature or an operation in progress. For an allocation conflict, the negotiator should refresh this channel's `FeatureGuidance` and reselect the rejected allocation subject to the recovery rules. An existing feature requires reconciliation, while an operation in progress requires backoff without changing parameters. A 409 alone does not authorize replacing a feature or releasing reservations after an uncertain earlier request.
 
 Once all desired features have been created, we can move onto provisioning the actual hardware.
 
