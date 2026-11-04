@@ -257,6 +257,12 @@ ActivationKeyV1:
       type: integer
       format: int32
       enum: [1]
+    destinationEnvironmentUri:
+      description: |-
+        Required. The destination environment URI this activation key is
+        intended for use at. Always in cleartext so the receiver can identify
+        which environment to use.
+      type: string
     sharedConnectionUuid:
       description: |-
         Required. The UUID assigned to this connection to be used by both
@@ -290,6 +296,12 @@ ActivationKeyV2:
       type: integer
       format: int32
       enum: [2]
+    destinationEnvironmentUri:
+      description: |-
+        Required. The destination environment URI this activation key is
+        intended for use at. Always in cleartext so the receiver can identify
+        which environment, and which private key, to use for decryption.
+      type: string
     encryptedContents:
       description: |-
         Required. Base64-encoded ciphertext containing the encrypted inner
@@ -386,8 +398,9 @@ EncryptionParameters:
   properties:
     publicKey:
       description: |-
-        The PEM-encoded public key for encrypting activation key contents
-        destined for this environment. Providers are recommended to rotate at
+        The public key for encrypting activation key contents destined for
+        this environment, as a PEM `PUBLIC KEY` block (RFC 7468) wrapping a
+        DER-encoded SubjectPublicKeyInfo, per `keyFormat`. Providers are recommended to rotate at
         least weekly, though the rotation cadence is ultimately agreed between
         the two partners based on their security needs. The environment accepts
         keys encrypted with any of the 4 most recent public keys.
@@ -404,10 +417,17 @@ EncryptionParameters:
     algorithm:
       description: |-
         The asymmetric encryption algorithm to use when encrypting the inner
-        payload with the provided public key.
+        payload with the provided public key. Values may be added in future
+        versions of this specification; clients should tolerate unknown values.
       type: string
+      enum: [RSA-OAEP-256]
       example: "RSA-OAEP-256"
     keyFormat:
-      description: The encoding format of the public key.
+      description: |-
+        The encoding format of the public key. `SPKI` is the X.509
+        SubjectPublicKeyInfo structure carried in a PEM `PUBLIC KEY` block.
+        Values may be added in future versions of this specification; clients
+        should tolerate unknown values.
       type: string
-      example: "PKCS8"
+      enum: [SPKI]
+      example: "SPKI"
