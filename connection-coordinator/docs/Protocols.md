@@ -228,7 +228,7 @@ the customer out of band to the partner provider. The remote provider
 *   The desired bandwidth is in fact still available
 *   That the listed account identifier in the **ActivationKey** is the same as
     the authenticated entity (or that the authenticated entity has the
-    necessary permissions to act on behalf of that account identfiier).
+    necessary permissions to act on behalf of that account identifier).
 
 After those checks are done on the remote provider, they call the
 **ConfirmActivationKey API** to ask the original provider if this activation
