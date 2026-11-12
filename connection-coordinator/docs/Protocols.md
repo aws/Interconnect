@@ -169,6 +169,52 @@ as connections and features.
 Note: In the future we may add support for mutating these resources to the API
 spec.
 
+## **Reliability and Retry Protocols**
+
+Providers MUST implement the Connection Coordinator API in a way that is safe
+under retries and transient failures. Callers MUST assume that requests may be
+processed by the remote provider even if the caller times out.
+
+### **Retries for timeouts and HTTP 5xx**
+
+For network timeouts and transient server-side failures (HTTP 5xx), callers:
+
+*   SHOULD retry requests using exponential backoff with jitter.
+*   SHOULD use a bounded retry budget (RECOMMENDED: up to 5 attempts and/or a
+    total elapsed time budget of ~60 seconds).
+*   MUST reuse the same fully-qualified resource name / identifiers when
+    retrying (e.g., the same `connectionId` and `featureId`). This ensures
+    idempotency.
+
+If a caller exhausts the retry budget, it MUST stop synchronous retries and
+SHOULD transition to a reconciliation / redrive workflow (see below).
+
+### **Throttling (HTTP 429)**
+
+Providers MAY return HTTP 429 (Too Many Requests) for throttling.
+
+*   If a provider returns 429, it SHOULD include `Retry-After`.
+*   Callers MUST respect `Retry-After` when present.
+
+### **Reconciliation / redrive**
+
+After transient errors or timeouts, callers SHOULD reconcile remote state before
+proceeding. Reconciliation is typically implemented by using `Get*` / `List*`
+operations to determine whether the remote resource exists and is in the
+expected state. Providers may also implement background redrive to converge the
+remote provider to the expected state without causing unbounded retry storms.
+
+### **Feature identity and invariants**
+
+*   Feature IDs (`featureId`) MUST be treated as opaque identifiers. UUIDv4 is
+    RECOMMENDED.
+*   Callers MUST persist feature IDs locally so they can later `GetFeature` and
+    `DeleteFeature` reliably.
+*   Providers SHOULD enforce an invariant that there is at most one
+    `FEATURE_TYPE_L3_BASE` Feature per `(connection, channel)`. Attempts to
+    create a second `FEATURE_TYPE_L3_BASE` for the same `(connection, channel)`
+    SHOULD be rejected with HTTP 409 (Conflict).
+
 ## **Customer Connection Workflow**
 
 When a customer is looking to make a connection, there are 3 milestones that
