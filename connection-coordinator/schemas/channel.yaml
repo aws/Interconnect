@@ -12,6 +12,9 @@ Channel:
 
     3. cross_connect_manager_provider_id
 
+     4. featureRecoveryManagerProvider (only for the bilaterally agreed draft
+       Feature Recovery and Reconciliation profile)
+
     All other fields within the channel are populated by the server provider.
   example:
     demarc: demarc
@@ -44,6 +47,19 @@ Channel:
         Output only. The URI of the provider responsible for managing physical crossconnects.  This
         includes cross connect costs and any troubleshooting requests to the vendor
         providing the cross connect.
+
+        Format: providers/{provider}
+      readOnly: true
+      type: string
+    featureRecoveryManagerProvider:
+      description: |-
+        Output only. Draft proposal: URI of the provider coordinating recovery
+        of implicit features on this channel. Optional and exposed only after
+        bilateral agreement to the Feature Recovery and Reconciliation profile
+        in docs/FeatureRecovery.md. Static onboarding must agree the same owner
+        on both sides; absence or disagreement disables new autonomous recovery
+        mutations. Do not infer ownership from MACsec or cross-connect managers.
+        Transfer requires agreed quiescence and fencing, not just a field change.
 
         Format: providers/{provider}
       readOnly: true

@@ -223,6 +223,13 @@ NotifyConnectionStatus:
       The receiving provider must refresh the specified connection resource
       immediately after receiving this notification to ensure their local state
       is consistent with the server provider.
+
+      Draft opt-in recovery profile (docs/FeatureRecovery.md): also notify on
+      feature lifecycle changes and refresh GetFeature/ListFeatures views, not
+      only the parent. Persist notification intent and retry delivery with bounded
+      backoff and escalation; periodic reconciliation covers lost or reordered
+      notifications. Acknowledgment confirms receipt, not provisioning success.
+      Existing connection verification requirements remain unchanged.
     operationId: NotifyConnectionStatus
     parameters:
     - $ref: "../parameters/_index.yaml#/parameters/x-request-id"

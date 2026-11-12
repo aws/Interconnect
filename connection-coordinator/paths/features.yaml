@@ -65,6 +65,15 @@ AllFeatures:
       request is in flight, retrying the provisioning flow with new parameters,
       or cleaning up resources and rejecting the customer's provisioning request.
 
+      Draft opt-in recovery profile (docs/FeatureRecovery.md): reconcile unknown
+      outcomes with GetFeature and ListFeatures before retrying. Matching or
+      one-sided generations retain their existing identity and configuration;
+      neither a timeout nor stalled provisioning authorizes new parameters or
+      deletion. Serialize by logical connection/channel/feature type as well as
+      resource ID. Replacement and cleanup require coordinated authorization and
+      cross-provider fencing. Without bilateral agreement, this profile is not
+      enabled. L3 configuration remains immutable.
+
       Errors:
         409: CONFLICT. Returned when a server detect concurrent updates to the
         resource.
